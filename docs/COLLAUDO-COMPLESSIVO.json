@@ -1,0 +1,108 @@
+{
+  "version": "0.5.2-beta",
+  "readyForControlledPilot": true,
+  "published": false,
+  "sentToThirdParties": false,
+  "installedAppModified": false,
+  "unitTests": {
+    "arm64": 50,
+    "x64Emulated": 50
+  },
+  "ui": {
+    "calculationPreview": true,
+    "stalePreviewDisabled": true,
+    "invalidCellsRejected": true,
+    "formulaTransfer": true,
+    "pdfImportAndExport": true,
+    "officePanel": true,
+    "formulaApplySaveUndo": true,
+    "pageErrors": []
+  },
+  "excelFormulaRoundtrip": [
+    {
+      "formula": "COUNTIF(E2:AI2,\"P\")",
+      "cachedValue": "1"
+    }
+  ],
+  "trainedInference": [
+    {
+      "architecture": "arm64",
+      "operation": "count_formula",
+      "seconds": 2.3,
+      "requiresConfirmation": true,
+      "memoryReleased": true
+    },
+    {
+      "architecture": "arm64",
+      "operation": "count",
+      "seconds": 2.16,
+      "requiresConfirmation": true,
+      "memoryReleased": true
+    },
+    {
+      "architecture": "arm64",
+      "operation": "discount",
+      "seconds": 2.22,
+      "requiresConfirmation": true,
+      "memoryReleased": true
+    },
+    {
+      "architecture": "arm64",
+      "generalChatWithAdapterOff": true,
+      "seconds": 3.09
+    },
+    {
+      "architecture": "x64",
+      "operation": "count_formula",
+      "seconds": 5.14,
+      "requiresConfirmation": true,
+      "memoryReleased": true
+    },
+    {
+      "architecture": "x64",
+      "operation": "count",
+      "seconds": 3.67,
+      "requiresConfirmation": true,
+      "memoryReleased": true
+    },
+    {
+      "architecture": "x64",
+      "operation": "discount",
+      "seconds": 3.76,
+      "requiresConfirmation": true,
+      "memoryReleased": true
+    },
+    {
+      "architecture": "x64",
+      "generalChatWithAdapterOff": true,
+      "seconds": 8.42
+    }
+  ],
+  "syntheticPdfFlow": [
+    {
+      "case": "registro",
+      "rows": 3,
+      "valuesMatch": true,
+      "warnings": 0,
+      "mergedCells": 0
+    },
+    {
+      "case": "discrepanza",
+      "rows": 3,
+      "valuesMatch": true,
+      "warnings": 1,
+      "mergedCells": 0
+    },
+    {
+      "case": "intestazione-incompleta",
+      "correctlyRejected": true
+    },
+    {
+      "case": "scansione",
+      "correctlyRejected": true
+    }
+  ],
+  "physicalX64": false,
+  "realMicrophone": false,
+  "automaticAiRoutingApproved": false
+}

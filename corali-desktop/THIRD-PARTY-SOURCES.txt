@@ -1,0 +1,65 @@
+CORALI LAB DESKTOP - COMPONENTI E SORGENTI
+
+Il codice originale del programma desktop e distribuito con licenza
+AGPL-3.0-only. Il testo completo e in LICENSE. I modelli e le librerie non
+cambiano licenza: valgono le attribuzioni dei rispettivi autori.
+
+Il pacchetto sorgenti CoralÃ¬ contiene Python, C#, interfaccia, specifiche di
+build e test. Nessun documento reale o dato personale di collaudo e incluso.
+Le cartelle licenses e gli avvisi nell'interfaccia conservano le attribuzioni.
+Alcuni avvisi storici riguardano componenti Android o non piu distribuiti:
+questa lista identifica quelli effettivi della versione desktop.
+
+PyMuPDF 1.28.2 / MuPDF: AGPLv3, https://github.com/pymupdf/PyMuPDF
+Sorgente della versione: https://pypi.org/project/PyMuPDF/1.28.2/#files
+Il pacchetto sorgente sdist e elencato con hash in upstream-sources.json.
+La versione MuPDF inclusa va ricostruita secondo lo script di build dello sdist.
+
+Cedro 0.21.2: MIT. Eseguito come programma separato tramite CLI.
+https://github.com/realfulvio/cedro/releases/tag/v0.21.2
+https://github.com/realfulvio/cedro/tree/v0.21.2
+Metadati, digest dei worker e licenze dentro _internal/engine.
+I file EngineHost.cs sono collegamenti originali CoralÃ¬, inclusi nei sorgenti.
+
+OpenDocument.core 7.6.1: MPL-2.0, motore WASM.
+https://github.com/opendocument-app/OpenDocument.core/tree/v7.6.1
+https://github.com/opendocument-app/OpenDocument.core/blob/v7.6.1/tools/pdf/THIRD_PARTY_LICENSES.md
+Distribuzione npm @opendocument/odr-core 7.6.1, non modificata.
+Le modifiche CoralÃ¬ sono nei file JS dell'interfaccia e nella compatibilita OOXML.
+
+FFmpeg 7.1 essentials, compilazione gyan.dev: GPLv3, eseguibile separato x64.
+Non incluso nel pacchetto Corali. Il primo download video lo scarica direttamente
+dal produttore, con URL e SHA-256 fissati in media-manifest.json.
+Il binario scaricato non e la compilazione LGPL BtbN citata negli
+avvisi storici di Cedro. La sua configurazione dichiara --enable-gpl --enable-version3.
+https://github.com/GyanD/codexffmpeg/releases/tag/7.1
+Sorgente FFmpeg indicato dal produttore:
+https://github.com/FFmpeg/FFmpeg/tree/b08d7969c5
+Configurazione e versioni librerie: ffmpeg-build.txt e documentazione del build.
+Corali non ridistribuisce questa compilazione o le sue librerie statiche.
+I sorgenti sono offerti dal produttore ai link della sua distribuzione.
+
+Pillow 13.0.0: MIT-CMU e licenze delle librerie incorporate.
+https://pypi.org/project/Pillow/13.0.0/#files
+CPython 3.13.14: PSF, https://www.python.org/downloads/release/python-31314/
+PyInstaller 6.22.3: GPL con eccezione per gli eseguibili generati.
+https://github.com/pyinstaller/pyinstaller/tree/v6.22.3
+yt-dlp 2026.10.26: Unlicense con dipendenze aventi proprie licenze.
+https://github.com/yt-dlp/yt-dlp/tree/2026.10.26
+yt-dlp-ejs 0.8.0: https://github.com/yt-dlp/ejs
+Font Titillium Web: SIL OFL; testo incluso negli avvisi dell'interfaccia.
+WebView2 SDK / Loader 1.0.3856.49: licenza Microsoft, sistema WebView2 installato separatamente.
+https://www.nuget.org/packages/Microsoft.Web.WebView2/1.0.3856.49
+
+AI FACOLTATIVA, DISTRIBUZIONE SEPARATA
+llama.cpp b11936: MIT, https://github.com/ggml-org/llama.cpp/tree/b11936
+Runtime ARM64/x64: URL e SHA-256 in ai-manifest.json, download diretto al primo uso.
+Qwen2.5-1.5B-Instruct: Apache-2.0.
+https://huggingface.co/Qwen/Qwen2.5-1.5B-Instruct/tree/989aa7980e4cf806f80c7fef2b1adb7bc71aa306
+La quantizzazione del pacchetto AI e stata ricreata da questa sorgente.
+L'adattatore operazioni v1 e addestrato su dati sintetici; licenza Apache-2.0.
+Vedere MODEL-CARD.txt nel pacchetto AI e i dati/script nel pacchetto sorgenti.
+
+STATO: sorgenti Corali e archivi sorgente PyMuPDF/Pillow preparati insieme
+alla beta. FFmpeg e stato escluso dai binari distribuiti. Gli altri componenti
+conservano licenze e riferimenti sorgente. Pubblicazione non ancora effettuata.

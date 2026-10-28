@@ -1,0 +1,37 @@
+Corali Lab 0.5.2 beta - versione di collaudo Windows ARM64 e x64
+
+Novita
+- Calcoli e formule verificati nel laboratorio e nel pannello Office.
+- Anteprima esplicita per conteggi P, COUNTIF, SUM e importi scontati.
+- Dati cambiati: anteprima precedente invalidata; ricalcolo necessario.
+- Suggeritore AI locale addestrato, facoltativo e sperimentale.
+- Il suggeritore propone l'operazione; la persona la corregge o conferma.
+- Nessuna azione automatica derivata dal testo dei documenti.
+
+Il pacchetto AI contiene il modello base corrispondente all'adattatore.
+Non usare l'adattatore con il vecchio GGUF: i pesi sono diversi.
+L'app verifica SHA-256 prima di caricarli. Dopo un suggerimento libera la RAM.
+La conversazione generale usa il modello base senza adattatore.
+
+Qualita del suggeritore: 31/36 casi di validazione e 56/60 casi finali,
+contro 25/36 e 46/60 dell'adattatore precedente sugli stessi casi.
+Sono casi sintetici con varieta linguistica limitata: non una garanzia di
+accuratezza su qualsiasi richiesta. Soglia per uso autonomo NON raggiunta.
+Conteggi e importi sono calcolati dal codice locale sui dati compilati.
+
+PDF -> Excel: registri mensili riconosciuti e tabelle con testo nativo.
+I dati mancanti non sono completati dall'AI. I totali originali sono conservati;
+le discrepanze sono indicate nella colonna Controllo. Le scansioni e strutture
+non riconosciute vengono rifiutate da questo percorso: OCR separato.
+La presenza di un Excel esportato non certifica la correttezza del PDF sorgente.
+
+La versione x64 e verificata in emulazione sul Surface ARM; il primo collaudo
+su un PC Intel/AMD fisico deve ancora essere eseguito. Microfono reale da provare.
+Applicazione non firmata digitalmente; nessun acquisto richiesto per provarla.
+
+Documenti, email e nominativi reali non fanno parte dei pacchetti di prova.
+Le importazioni e i salvataggi lavorano su copie.
+
+Licenza del codice originale Coralì desktop: AGPL-3.0-only (vedere LICENSE).
+I componenti di terze parti conservano licenze e attribuzioni proprie.
+Leggere THIRD-PARTY-SOURCES.txt per sorgenti e limiti della preparazione pubblica.

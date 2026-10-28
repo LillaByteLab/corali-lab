@@ -1,0 +1,5 @@
+PyMuPDF==1.28.2
+Pillow==13.0.0
+yt-dlp==2026.10.26
+yt-dlp-ejs==0.8.0
+PyInstaller==6.22.3

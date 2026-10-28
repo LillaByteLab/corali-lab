@@ -1,0 +1,41 @@
+{
+  "scope": "Allowlisted packaging and scans of filenames and text files up to 2 MB; not a proof against every possible secret in binaries. Third-party source tarballs are upstream originals.",
+  "packages": [
+    {
+      "package": "arm64",
+      "zipIntegrity": true,
+      "sha256Verified": true,
+      "files": 131,
+      "privatePathsAndKnownPrivateNamesAbsent": true,
+      "tokenPatternScanPassed": true,
+      "ffmpegNotRedistributed": true
+    },
+    {
+      "package": "x64",
+      "zipIntegrity": true,
+      "sha256Verified": true,
+      "files": 127,
+      "privatePathsAndKnownPrivateNamesAbsent": true,
+      "tokenPatternScanPassed": true,
+      "ffmpegNotRedistributed": true
+    },
+    {
+      "package": "source",
+      "zipIntegrity": true,
+      "sha256Verified": true,
+      "files": 119,
+      "privatePathsAndKnownPrivateNamesAbsent": true,
+      "tokenPatternScanPassed": true,
+      "ffmpegNotRedistributed": false
+    },
+    {
+      "package": "ai",
+      "zipIntegrity": true,
+      "sha256Verified": true,
+      "files": 6,
+      "privatePathsAndKnownPrivateNamesAbsent": true,
+      "tokenPatternScanPassed": true,
+      "ffmpegNotRedistributed": false
+    }
+  ]
+}

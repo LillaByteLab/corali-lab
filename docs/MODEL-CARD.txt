@@ -1,0 +1,22 @@
+Corali operazioni v1 - suggeritore sperimentale
+
+Base: Qwen2.5-1.5B-Instruct, Apache-2.0. Revisione HF:
+989aa7980e4cf806f80c7fef2b1adb7bc71aa306
+Quantizzazione locale Q4_K_M tramite llama.cpp b11936.
+Adattatore: LoRA rank 8, alpha 16, proiezioni q/k/v/o degli ultimi 4 blocchi,
+311296 parametri addestrabili. Derivato da round2, poi round3 e round3b.
+Ultimi due cicli: 192 + 132 aggiornamenti su dati sintetici.
+Licenza dell'adattatore: Apache-2.0; autore: contributori Corali Lab.
+
+L'AI sceglie un'operazione tra sei possibilita; non calcola i numeri.
+I numeri vengono da funzioni locali con input controllati.
+31/36 validazione, 56/60 test: varieta delle frasi limitata, nessuna garanzia
+di correttezza su richieste arbitrarie. Non approvato per operazioni autonome.
+Nell'app richiede scelta/conferma dell'operazione e anteprima.
+Non addestrato con documenti personali, email o nomi di alunni.
+
+Mettere ai-pack accanto a CoraliLab.exe e premere Scarica componenti AI:
+il modello non viene riscaricato; viene preparato il runtime del PC.
+Il modello generale usa la stessa base senza adattatore.
+Non combinare questo adattatore con il vecchio GGUF dell'app.
+Dati, codice e pesi PEFT: pacchetto CoraliLab-0.5.2-sorgenti.zip.

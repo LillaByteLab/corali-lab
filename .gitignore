@@ -1,0 +1,12 @@
+__pycache__/
+*.pyc
+.venv/
+.tooling/
+.env
+*.eml
+*.gguf
+dist*/
+build/
+corali-desktop/engine/
+corali-desktop/engine-x64/
+session.json

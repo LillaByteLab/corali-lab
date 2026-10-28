@@ -1,0 +1,5 @@
+0adbe82bd02bb93b1474d746fd14b32b00ead826fb39261c1f8120469b581885  CoraliLab-0.5.2-Windows-arm64.zip
+e4a04f837e683473c4251bf787aa8165ea6d03ab5a555548e7275fbf9657b9c7  CoraliLab-0.5.2-Windows-x64.zip
+71b99ebeb902c2746eb919f43db1b512dc0398ebb99c9601c0c3a4d3d07f93e3  CoraliLab-0.5.2-sorgenti.zip
+2a177bce592d7315cbf42b09601c197fbf5410f2f886e3de8420cbed3ea09117  CoraliLab-AI-locale-v1.zip
+a3bb55cb51c19e347d3e11bb0bf37baa17e8de1e333c9338f0675d5f79fa1946  CoraliLab-0.5.2-Kit-prova-x64.zip

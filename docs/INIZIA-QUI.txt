@@ -1,0 +1,32 @@
+CORALI LAB 0.5.2 BETA - INIZIA QUI
+
+Questo kit e per Windows 11 con processore Intel o AMD (x64).
+Per Surface Snapdragon/ARM serve il pacchetto arm64 separato.
+
+1. Clic destro sullo ZIP > Estrai tutto in una cartella del PC.
+2. Apri CoraliLab e avvia CoraliLab.exe. Non avviarlo dentro lo ZIP.
+3. Facoltativo: Installa.cmd crea l'icona sul Desktop per il tuo utente.
+4. Il modello AI e GIA nella cartella giusta: non copiarlo o scaricarlo di nuovo.
+   Apri Assistente e strumenti > Scarica i componenti AI: il programma verifica
+   il modello e scarica soltanto il motore di esecuzione. Serve internet una volta.
+5. Prova prima CoraliLab/esempi/registro-sintetico.pdf: importalo, poi Assistente
+   e strumenti > Da PDF a Excel > Registri presenze. Attese 3 righe, 0 avvisi.
+6. Per l'AI: Calcoli e formule verificati, intervallo B2:AF2, sigla P, richiesta
+   "Vorrei la formula per contare le P". Il suggerimento e da controllare.
+   Conferma Crea formula COUNTIF e calcola l'anteprima. Nessuna modifica automatica.
+
+Guida completa: CoraliLab/INSTALLAZIONE.txt.
+Il secondo PDF di esempio contiene apposta un totale incoerente: atteso 1 avviso.
+Per un importo 10,05 con sconto 50%, l'anteprima deve mostrare 5.03.
+La voce richiede un microfono e, al primo uso, il modello locale di trascrizione.
+
+Prevedi circa 4 GB liberi fra ZIP, estrazione, modelli e dati iniziali.
+Provato con 16 GB di RAM; il collaudo su un PC Intel/AMD fisico e ancora da fare.
+Questa e una BETA: prova prima gli esempi, conserva e controlla gli originali.
+Le scansioni non vengono convertite dal profilo registri; l'OCR e un percorso separato.
+Se Windows segnala un prerequisito, consulta la guida per WebView2 e .NET 4.8.1.
+
+I sorgenti e le licenze sono inclusi: non contiene email o registri di persone reali.
+Il file sorgenti ZIP non serve per avviare l'app: conservalo insieme al programma.
+Per segnalare problemi: versione, tipo PC, operazione, errore e risultato atteso.
+Usa gli esempi fittizi; non allegare dati personali o registri riservati.

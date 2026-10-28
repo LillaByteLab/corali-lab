@@ -1,0 +1,73 @@
+const $=id=>document.getElementById(id),frame=$('document');
+let seq=0,meta=null,index=0,channel='',frameDirty=false,editing=false,working=false,frameReady=false,frameUrl='',savedName='',frameTimer=null;
+const nativePending=new Map(),workerPending=new Map(),framePending=new Map();
+const worker=new Worker(new URL('./worker.js',import.meta.url),{type:'module'});
+function settle(map,m){const p=map.get(m.id);if(!p)return;map.delete(m.id);clearTimeout(p.timer);m.ok?p.resolve(m.data):p.reject(Error(m.error||'Operazione non riuscita.'));}
+worker.onmessage=e=>settle(workerPending,e.data);
+worker.onerror=e=>{for(const p of workerPending.values())p.reject(Error(e.message||'Errore del motore Office.'));workerPending.clear();busy(false);toast('Il motore Office si è fermato. Riapri il documento.');};
+function request(map,send,payload){return new Promise((resolve,reject)=>{const id=String(++seq),timer=setTimeout(()=>{map.delete(id);reject(Error('Operazione scaduta. Riprova.'));},120000);map.set(id,{resolve,reject,timer});send({...payload,id});});}
+const engine=(cmd,data={})=>request(workerPending,m=>worker.postMessage(m),{cmd,...data});
+const native=(cmd,data={})=>request(nativePending,m=>OfficeNative.postMessage(JSON.stringify(m)),{cmd,...data});
+if(window.OfficeNative)OfficeNative.onmessage=e=>{try{settle(nativePending,JSON.parse(e.data));}catch{toast('Risposta di salvataggio non valida.');}};
+function command(cmd,arg){if(!frameReady)return Promise.reject(Error('Attendi l’apertura del documento.'));return request(framePending,m=>frame.contentWindow.postMessage({corali:channel,type:'command',...m},'*'),{cmd,arg});}
+function toast(message){$('toast').textContent=message;$('toast').hidden=false;clearTimeout(toast.timer);toast.timer=setTimeout(()=>$('toast').hidden=true,9000);}
+function busy(value,label='Elaborazione sul telefono…'){working=value;$('loading').hidden=!value;$('loadingText').textContent=label;}
+function loadError(error){clearTimeout(frameTimer);busy(false);$('loadError').hidden=false;$('loadErrorMessage').textContent='L’apertura si è interrotta. Puoi riprovare; il file originale è conservato.';$('loadErrorDetail').textContent=error?.message||String(error);$('status').textContent='Apertura non riuscita';$('edit').disabled=true;$('save').disabled=true;}
+$('retryOpen').onclick=()=>location.reload();
+function update(m){meta=m;$('filename').textContent=m.name;$('edit').disabled=!m.editable;$('save').disabled=!m.editable;$('sheetTools').hidden=!/xlsx|ods|spreadsheet/i.test(m.type);$('views').replaceChildren(...m.views.map(v=>new Option(v.name==='document'?'Documento':v.name||`Diapositiva ${m.views.indexOf(v)+1}`,v.index)));$('views').value=String(index);$('views').disabled=m.views.length<2;$('previous').disabled=m.views.findIndex(v=>v.index===index)<=0;$('next').disabled=m.views.findIndex(v=>v.index===index)>=m.views.length-1;
+ const warnings=[];if(!m.editable)warnings.push(m.reason||'Questo formato è disponibile in sola lettura.');if(m.views.some(v=>v.sheetCut&&(v.sheetCut.contentRows>v.sheetCut.renderedRows||v.sheetCut.contentColumns>v.sheetCut.renderedColumns)))warnings.push('Foglio molto grande: viene mostrata solo una parte.');const c=m.calculation||{};if(c.circular?.length)warnings.push('Sono presenti formule circolari.');if(c.unevaluated?.length)warnings.push('Alcune formule non sono state ricalcolate. Controllale in un programma Office.');if(m.logs?.length)warnings.push('Il motore segnala elementi con compatibilità limitata. Controlla il risultato prima di condividerlo.');$('notice').textContent=warnings.join(' ');$('notice').hidden=!warnings.length;status();}
+function status(){$('status').textContent=!meta?'Scegli un documento.':(meta.dirty||frameDirty?'● Modifiche da salvare · ':'')+(editing?'Modifica attiva':'Lettura')+' · '+(meta.views.findIndex(v=>v.index===index)+1)+' / '+meta.views.length;}
+const helper=fetch('./frame-helper.js').then(r=>r.text());
+async function render(){clearTimeout(frameTimer);frameReady=false;const r=await engine('render',{index});update(r.meta);channel=crypto.randomUUID();const policy="default-src 'none'; script-src 'unsafe-inline' 'wasm-unsafe-eval' data: blob:; style-src 'unsafe-inline' data:; img-src data: blob:; font-src data:; connect-src 'none'; object-src 'none'; frame-src 'none'; base-uri 'none'; form-action 'none'";const inject=`<meta http-equiv="Content-Security-Policy" content="${policy}"><script>window.CORALI_CHANNEL=${JSON.stringify(channel)};<\/script>`;let html=r.html.replace(/<head[^>]*>/i,m=>m+inject);html=html.replace(/<\/body>/i,`<script>${await helper}<\/script></body>`);frameTimer=setTimeout(()=>loadError(Error('Il visualizzatore non ha risposto entro 30 secondi.')),30000);frame.srcdoc=html;if(r.externalResources?.length)toast('Il documento contiene risorse esterne non caricate nella modalità offline.');}
+window.addEventListener('message',e=>{const m=e.data;if(e.source!==frame.contentWindow||!m||m.corali!==channel)return;const d=m.detail||{};if(m.type==='reply'){settle(framePending,{id:d.id,ok:!d.error,data:d.value,error:d.error});return;}if(m.type==='ready'){clearTimeout(frameTimer);frameReady=true;if(editing&&meta.editable)command('enable').catch(error=>toast(error.message));busy(false);}else if(m.type==='change'){frameDirty=!!d.dirty;status();}else if(m.type==='error'||m.type==='refused'||m.type==='link')toast(d.message||d.reason||'Questa modifica non è supportata.');else if(m.type==='search')$('matches').textContent=d.count?String(d.count):'';else if(m.type==='stale')$('status').textContent='Formule da ricalcolare al salvataggio';});
+async function collect(){if(!meta?.editable||!frameReady)return;const raw=await command('operations'),diff=typeof raw==='string'?raw:JSON.stringify(raw);if(JSON.parse(diff).ops?.length){update(await engine('apply',{diff}));await command('committed');frameDirty=false;}}
+async function open(bytes,name,options={}){$('loadError').hidden=true;meta=null;clearTimeout(frameTimer);frameReady=false;channel='';frame.srcdoc='';$('filename').textContent=name;busy(true,'Apertura del documento…');editing=false;$('edit').textContent='Modifica';frameDirty=false;index=0;$('editbar').hidden=true;$('sheetbar').hidden=true;$('saved').hidden=true;const result=await engine('open',{bytes,name,options:{...options,width:Math.max(320,innerWidth)}});if(result.passwordRequired){busy(false);$('passwordDialog').showModal();return;}index=result.views[0].index;update(result);await render();}
+async function run(fn){if(working)return;try{await fn();}catch(e){busy(false);if(!meta||!frameReady)loadError(e);else toast(e.message);}}
+async function save(){busy(true,'Controllo e salvataggio della copia…');await collect();const r=await engine('save');update(r.meta);let name=meta.name.replace(/\.[^.]+$/,'')+'-modificato.'+meta.name.split('.').pop();if(window.OfficeNative){let token;try{({token}=await native('begin',{size:r.bytes.length}));for(let offset=0;offset<r.bytes.length;offset+=196608){const chunk=r.bytes.subarray(offset,offset+196608);let binary='';for(let i=0;i<chunk.length;i+=8192)binary+=String.fromCharCode(...chunk.subarray(i,i+8192));await native('chunk',{token,offset,data:btoa(binary)});}name=(await native('commit',{token})).name;}catch(e){await native('abort').catch(()=>{});throw e;}}else{const url=URL.createObjectURL(new Blob([r.bytes],{type:'application/octet-stream'})),a=document.createElement('a');a.href=url;a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(url),60000);}
+ savedName=name;update(await engine('markSaved'));frameDirty=false;$('savedName').textContent='Copia pronta: '+name;$('saved').hidden=false;$('export').hidden=!window.OfficeNative;$('share').hidden=!window.OfficeNative;await render();if(window.OfficeNative)return await exportCopy();toast('Download della copia avviato.');return true;}
+async function exportCopy(){const result=await native('export');if(result.saved){const where=result.path||'nella cartella scelta';$('savedName').textContent='Copia salvata in: '+where;toast('Copia salvata in: '+where);return true;}$('savedName').textContent='Scelta cartella annullata. La copia resta nei Risultati.';toast('Nessun file esportato. Puoi scegliere di nuovo la cartella.');return false;}
+async function close(){if(meta)meta.dirty=false;frameDirty=false;if(window.OfficeNative)await native('close');else location.href='../index.html';}
+window.coraliOfficeBack=()=>run(async()=>{await collect();if(meta?.dirty||frameDirty)$('closeDialog').showModal();else await close();});
+$('close').onclick=window.coraliOfficeBack;$('save').onclick=()=>run(save);
+$('continueEditing').onclick=()=>$('closeDialog').close();$('discard').onclick=()=>{$('closeDialog').close();close();};$('saveAndClose').onclick=()=>run(async()=>{if(await save()===false)return;$('closeDialog').close();await close();});
+$('edit').onclick=()=>run(async()=>{editing=!editing;await command(editing?'enable':'disable');$('editbar').hidden=!editing;$('sheetbar').hidden=true;$('edit').textContent=editing?'Fine modifica':'Modifica';status();});
+async function changeView(next){await collect();index=next;busy(true,'Apertura della vista…');await render();}
+$('views').onchange=()=>run(()=>changeView(Number($('views').value)));$('previous').onclick=()=>run(()=>changeView(meta.views[meta.views.findIndex(v=>v.index===index)-1].index));$('next').onclick=()=>run(()=>changeView(meta.views[meta.views.findIndex(v=>v.index===index)+1].index));
+for(const id of ['zoomIn','zoomOut','fit','undo','redo','previousMatch','nextMatch'])$(id).onclick=()=>run(()=>command(id));
+for(const b of document.querySelectorAll('[data-command]')){b.onpointerdown=e=>e.preventDefault();b.onclick=()=>run(()=>command(b.dataset.command,b.dataset.arg));}
+for(const id of ['undo','redo'])$(id).onpointerdown=e=>e.preventDefault();
+$('size').onchange=()=>run(()=>command('format',{size:$('size').value+'pt'}));$('color').onchange=()=>run(()=>command('format',{color:$('color').value}));$('align').onchange=()=>run(()=>command('format',{align:$('align').value}));
+$('sheetTools').onclick=()=>$('sheetbar').hidden=!$('sheetbar').hidden;$('query').oninput=()=>{clearTimeout($('query').timer);$('query').timer=setTimeout(()=>run(()=>command('search',$('query').value)),200);};
+$('fullscreen').onclick=()=>document.body.classList.toggle('fullscreen');
+$('export').onclick=()=>run(exportCopy);$('share').onclick=()=>run(()=>native('share'));
+$('passwordForm').onsubmit=e=>{e.preventDefault();run(async()=>{busy(true,'Apertura del documento protetto…');const result=await engine('decrypt',{password:$('password').value});$('password').value='';$('passwordDialog').close();update(result);await render();});};$('cancelPassword').onclick=()=>{$('passwordDialog').close();close();};
+$('file').onchange=()=>run(async()=>{const file=$('file').files[0];if(!file)return;if(meta?.dirty||frameDirty){toast('Salva prima la copia aperta, poi scegli un altro documento.');return;}await open(new Uint8Array(await file.arrayBuffer()),file.name,{editable:/\.(docx|xlsx|pptx|odt|ods|odp)$/i.test(file.name)});});
+window.addEventListener('beforeunload',e=>{if(meta?.dirty||frameDirty){e.preventDefault();e.returnValue='';}});
+try{if(window.OfficeNative){const info=await native('info'),response=await fetch(info.url);if(!response.ok)throw Error('Documento non disponibile.');await open(new Uint8Array(await response.arrayBuffer()),info.name,info);}else{$('browserOpen').hidden=false;busy(false);status();}}catch(e){loadError(e);}
+
+window.coraliAssistantContext=async()=>await command('assistantContext');
+window.coraliAssistantApply=async({capture,text,cell,value})=>{
+ if(!meta?.editable)throw Error('Il documento è in sola lettura.');if(working)throw Error('Attendi la fine dell’operazione.');
+ let op;
+ if(/xlsx|ods|spreadsheet/i.test(meta.type)){
+  const match=/^([A-Z]{1,3})([1-9][0-9]{0,4})$/.exec(cell.toUpperCase());if(!match)throw Error('Cella non valida, per esempio C2.');let col=0;for(const c of match[1])col=col*26+c.charCodeAt(0)-64;if(col>500)throw Error('Colonna oltre il limite di 500.');
+  let parsed={type:'string',text:value};
+  if(value.startsWith('=')){
+   const formula=value.slice(1).trim();const allowed=new Set(['SUM','SUMIF','SUMIFS','COUNT','COUNTA','COUNTIF','COUNTIFS','AVERAGE','MIN','MAX','ROUND','IF','AND','OR','ABS']);
+   if(formula.length>1000||/[!\[\]{}|\\\r\n]/.test(formula)||[...formula.matchAll(/([A-Z_][A-Z0-9_.]*)\s*\(/gi)].some(m=>!allowed.has(m[1].toUpperCase())))throw Error('Formula non ammessa: usa riferimenti locali e funzioni di calcolo supportate, senza collegamenti esterni.');
+   parsed={type:'formula',formula};
+  }else if(/^-?\d+(?:[.,]\d+)?$/.test(value))parsed={type:'number',number:Number(value.replace(',','.')),text:value};
+  op={op:'setCell',sheet:meta.views.findIndex(v=>v.index===index),column:col-1,row:Number(match[2])-1,value:parsed};
+  if(!await confirmAssistant('Scrivere il valore seguente nella cella '+cell.toUpperCase()+' del foglio corrente? Il contenuto della cella verrà sostituito.\n\n'+value))return;
+ }else{
+  if(!capture?.runId||!text.trim())throw Error('Seleziona prima un segmento nel documento e premi Usa selezione.');
+  if(await command('assistantTarget',capture.runId)!==capture.runText)throw Error('Il segmento è cambiato: carica nuovamente la selezione prima di applicare la proposta.');
+  if(!await confirmAssistant('Sostituire tutto questo segmento?\n\n'+capture.runText+'\n\nCon:\n'+text))return;
+  op={op:'setText',id:capture.runId,text};
+ }
+ await collect();update(await engine('assistantApply',{diff:JSON.stringify({version:2,ops:[op]})}));await render();
+};
+window.coraliAssistantUndo=async()=>{await collect();update(await engine('assistantUndo'));await render();};
+await import('../assistant-widget.js');
+
+function confirmAssistant(message){return new Promise(resolve=>{const d=document.createElement('dialog');d.setAttribute('aria-label','Conferma modifica della copia');const title=document.createElement('h2');title.textContent='Controlla la modifica';const text=document.createElement('p');text.style.whiteSpace='pre-wrap';text.textContent=message;const yes=document.createElement('button');yes.className='primary';yes.textContent='Conferma modifica';const no=document.createElement('button');no.textContent='Annulla';let done=false;function finish(value){if(done)return;done=true;d.close();d.remove();resolve(value);}yes.onclick=()=>finish(true);no.onclick=()=>finish(false);d.oncancel=e=>{e.preventDefault();finish(false);};d.append(title,text,yes,no);document.body.append(d);d.showModal();});}

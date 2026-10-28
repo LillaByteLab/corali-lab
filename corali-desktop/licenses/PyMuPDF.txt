@@ -1,0 +1,4 @@
+
+PyMuPDF 1.28.2
+
+Dual Licensed - GNU AFFERO GPL 3.0 or Artifex Commercial License

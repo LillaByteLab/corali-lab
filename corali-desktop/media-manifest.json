@@ -1,0 +1,8 @@
+{
+  "url": "https://github.com/GyanD/codexffmpeg/releases/download/7.1/ffmpeg-7.1-essentials_build.zip",
+  "sha256": "fa7d4d7e795db0e2503f49f105f46ed5852386f0cfdd819899be3b65ebde24fc",
+  "exeSha256": "2ce797a0f88d7f067180338fb227f7b1928ea727bd9a4d7a1d022f7c52af71a3",
+  "bytes": 92100272,
+  "member": "ffmpeg-7.1-essentials_build/bin/ffmpeg.exe",
+  "version": "7.1"
+}

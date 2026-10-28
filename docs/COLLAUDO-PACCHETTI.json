@@ -1,0 +1,56 @@
+[
+  {
+    "architecture": "arm64",
+    "packagedBackend": true,
+    "trainedInference": true,
+    "generalChat": true,
+    "exactDiscount": true,
+    "requiresConfirmation": true,
+    "pdfCases": [
+      {
+        "case": "registro",
+        "expectedResult": true
+      },
+      {
+        "case": "discrepanza",
+        "expectedResult": true
+      },
+      {
+        "case": "intestazione-incompleta",
+        "expectedResult": true
+      },
+      {
+        "case": "scansione",
+        "expectedResult": true
+      }
+    ],
+    "physicalX64": false
+  },
+  {
+    "architecture": "x64",
+    "packagedBackend": true,
+    "trainedInference": true,
+    "generalChat": true,
+    "exactDiscount": true,
+    "requiresConfirmation": true,
+    "pdfCases": [
+      {
+        "case": "registro",
+        "expectedResult": true
+      },
+      {
+        "case": "discrepanza",
+        "expectedResult": true
+      },
+      {
+        "case": "intestazione-incompleta",
+        "expectedResult": true
+      },
+      {
+        "case": "scansione",
+        "expectedResult": true
+      }
+    ],
+    "physicalX64": false
+  }
+]

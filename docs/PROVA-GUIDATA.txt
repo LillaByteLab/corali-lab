@@ -1,0 +1,62 @@
+CORALI LAB - PROVA GUIDATA, SENZA COMPETENZE TECNICHE
+
+PRIMA, SUL SURFACE
+La versione da provare e 0.5.2 beta ARM64. La vecchia icona potrebbe aprire
+ancora 0.5.1: per questa prova usare la copia nuova indicata dall'assistente.
+Aprire Assistente e strumenti > Assistente AI > Detta la richiesta.
+Se Windows chiede l'accesso al microfono, consentirlo per questa prova.
+Leggere: "Scrivi una formula per ridurre il valore della cella A2 del venti per cento."
+Premere Ferma. Controllare che il testo riporti A2 e venti per cento.
+Se non e corretto, fermarsi e mostrare il messaggio: non applicare la proposta.
+La prima trascrizione puo richiedere il download del modello vocale locale.
+Questa prova verifica il microfono del Surface, non quello del PC di destinazione.
+
+POI, DAVANTI AL PC INTEL/AMD
+1. Sul Surface, copiare CoraliLab-0.5.2-Kit-prova-x64.zip su una chiavetta USB
+   con almeno 2 GB liberi. L'archivio pesa circa 1,27 GB.
+2. Sul PC di destinazione, copiare lo ZIP dalla chiavetta alla cartella Download.
+   Verificare in Impostazioni > Sistema > Informazioni che il processore sia
+   Intel o AMD e Windows sia a 64 bit. Questo kit e previsto per Windows 11.
+3. Clic destro sullo ZIP > Estrai tutto. Attendere che l'estrazione termini.
+   Non avviare i file mentre si sta ancora visualizzando il contenuto dello ZIP.
+4. Aprire la cartella estratta, poi CoraliLab. Fare doppio clic su Installa.cmd.
+   L'installer copia l'app nella cartella del proprio utente e crea l'icona.
+   Se appare un errore o un avviso inatteso, fermarsi e riportare il testo:
+   non disattivare antivirus o altre protezioni.
+5. Aprire Coralì Lab dal Desktop. Il modello AI e gia incluso: non copiarlo.
+6. Aprire Assistente e strumenti > Scarica i componenti AI. Serve internet
+   per scaricare il solo motore di esecuzione e, quando usata, la trascrizione.
+
+TRE PROVE DA FARE INSIEME
+A. Importare esempi/registro-sintetico.pdf dalla cartella CoraliLab estratta.
+   Assistente e strumenti > Da PDF a Excel > Registri presenze.
+   Atteso: tre righe di persone fittizie, zero avvisi. Aprire il risultato.
+   Premere Salva copia e verificare che il file sia nella cartella scelta.
+B. Calcoli e formule verificati: importo 10,05, sconto 50, operazione Calcola
+   importo scontato. Confermare e calcolare: atteso 5.03.
+   Poi intervallo B2:AF2, sigla P, operazione Crea formula COUNTIF:
+   atteso =COUNTIF(B2:AF2,"P"). Il modello puo suggerire l'operazione,
+   ma la scelta e l'anteprima devono essere confermate dalla persona.
+C. Ripetere la breve prova di dettatura anche sul microfono di questo PC.
+   Verificare il testo prima di inviarlo all'assistente.
+
+SOLO DOPO LE PROVE SINTETICHE
+Importare una copia di un PDF reale sul PC di destinazione. Il contenuto resta
+locale. Confrontare nell'Excel almeno una riga completa e tutte le righe con
+avvisi: nome, giorni, sigle e totali. Non correggere i totali del PDF per farli
+coincidere. Se la struttura non viene riconosciuta, conservare il messaggio.
+Non caricare il documento reale su GitHub o nella segnalazione di un problema.
+
+COME CONTINUARE CON L'ASSISTENTE
+Quando sei davanti al PC, scrivi: "Sono al PC per installare Coralì".
+Riceverai un passaggio alla volta. Indica esattamente cosa compare sullo schermo.
+L'assistente non ha accesso automatico al PC di destinazione da questa chat.
+Non e necessario installare strumenti di controllo remoto per seguire la guida.
+
+PUBBLICAZIONE SU GITHUB
+Account gia collegato. La pubblicazione verra presentata come 0.5.2 beta,
+con limiti, istruzioni, sorgenti e file pronti da scaricare.
+Il kit si puo usare prima che esista un link pubblico.
+Per la pubblicazione si usano soltanto gli artefatti puliti di questa consegna,
+non la cartella di sviluppo con documenti di lavoro e materiale di collaudo.
+La versione stabile richiede prima di chiudere gli eventuali problemi della prova.

@@ -1,0 +1,58 @@
+CORALI LAB - PRIMA PROVA SU WINDOWS
+
+1. Scegli il pacchetto Windows-x64 se il PC ha un processore Intel o AMD.
+   Per un Surface con processore Snapdragon scegli Windows-arm64.
+   Puoi verificarlo in Impostazioni > Sistema > Informazioni > Tipo sistema.
+
+2. Clic destro sullo ZIP > Estrai tutto. Non avviare il programma dentro lo ZIP.
+   Apri la cartella CoraliLab e fai doppio clic su CoraliLab.exe.
+   Windows 11 e WebView2 devono essere disponibili. Se manca WebView2, usa
+   l'installer ufficiale Microsoft: https://developer.microsoft.com/microsoft-edge/webview2/
+   Se manca .NET Framework 4.8.1, installalo dal sito ufficiale Microsoft.
+   Non occorre disinstallare Cedro o le vecchie versioni di Corali.
+
+3. Per avere l'icona sul Desktop, apri Installa.cmd nella cartella CoraliLab.
+   L'installazione riguarda solo il tuo utente e conserva i dati esistenti.
+   In alternativa puoi usare direttamente la copia estratta.
+
+4. Prima prova senza AI: importa esempi/registro-sintetico.pdf dalla schermata
+   principale. Apri Assistente e strumenti > Da PDF a Excel, scegli il PDF
+   e il profilo Registri presenze. Crea Excel, aprilo e usa Salva copia.
+   Sono attese tre righe di persone fittizie, nessuna cella unita, zero avvisi.
+   Il secondo esempio contiene apposta un totale incoerente: atteso un avviso.
+
+AI LOCALE FACOLTATIVA
+
+A. Per il nuovo suggeritore estrai CoraliLab-AI-locale-v1.zip. Copia la cartella
+   ai-pack accanto al CoraliLab.exe che usi (anche se lo hai installato).
+   Per trovarlo dall'icona: clic destro sull'icona > Apri percorso file.
+   I due file GGUF devono trovarsi direttamente dentro ai-pack.
+B. Apri Assistente e strumenti > Scarica i componenti AI. Con ai-pack presente,
+   viene scaricato soltanto il motore corretto per il PC; il modello e gia li.
+   Il primo download richiede internet. Poi prompt e documenti restano sul PC.
+C. Apri Calcoli e formule verificati. Per una formula, compila B2:AF2 e sigla P.
+   Scrivi o detta "Vorrei una formula che conti le P" e premi Suggerisci.
+   Controlla che sia selezionata Crea formula COUNTIF; correggi se necessario.
+   Premi Conferma operazione e calcola anteprima. L'esito atteso e
+   =COUNTIF(B2:AF2,"P"). Il suggerimento non modifica il foglio da solo.
+D. Nell'editor Office, Usa questa anteprima nella proposta trasferisce la
+   formula nel pannello. Indica la cella destinazione, premi Applica e conferma.
+   Controlla il risultato e premi Salva copia. Annulla applicazione AI ripristina
+   l'ultima applicazione, se non hai fatto ulteriori modifiche.
+
+Senza ai-pack puoi comunque usare tutti i calcoli verificati scegliendo
+manualmente l'operazione. Il pulsante Scarica componenti AI senza ai-pack
+scarica il modello generale: non e il suggeritore addestrato.
+
+Spazio: prevedi circa 4 GB liberi per app, pacchetto AI estratto e primi dati.
+Il collaudo e stato fatto con 16 GB di RAM; velocita su altri PC da verificare.
+Il primo avvio AI puo richiedere attesa. Chiudi i programmi pesanti se necessario.
+Scarica il modello dalla RAM libera memoria senza cancellare i file.
+
+PER SEGNALARE UN PROBLEMA
+Indica versione 0.5.2 beta, tipo PC, operazione, messaggio e cosa ti aspettavi.
+Usa gli esempi fittizi per riprodurlo. Non allegare nomi di alunni o documenti
+riservati. Per i PDF reali controlla anche le colonne Controllo e Origine.
+
+VIDEO WEB: al primo utilizzo viene scaricato FFmpeg dal produttore (92 MB).
+Il download e verificato con SHA-256; la copia viene riutilizzata localmente.

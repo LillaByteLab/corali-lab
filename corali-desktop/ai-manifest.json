@@ -1,0 +1,39 @@
+{
+  "runtimeVersion": "b11936",
+  "runtime": {
+    "arm64": {
+      "url": "https://github.com/ggml-org/llama.cpp/releases/download/b11936/llama-b11936-bin-win-cpu-arm64.zip",
+      "sha256": "bfda6833fbaa2084711bf1aa9e55904e223d8fc5c35b4bc709a1213d8c080f39"
+    },
+    "x64": {
+      "url": "https://github.com/ggml-org/llama.cpp/releases/download/b11936/llama-b11936-bin-win-cpu-x64.zip",
+      "sha256": "74e9b69bb0ad41f280ad16fafb71ff1e9044ecff4c87401252d247b042d3d034"
+    }
+  },
+  "model": {
+    "name": "Qwen2.5 1.5B Instruct Q4_K_M",
+    "file": "qwen2.5-1.5b-instruct-q4_k_m.gguf",
+    "url": "https://huggingface.co/Qwen/Qwen2.5-1.5B-Instruct-GGUF/resolve/91cad51170dc346986eccefdc2dd33a9da36ead9/qwen2.5-1.5b-instruct-q4_k_m.gguf",
+    "sha256": "6a1a2eb6d15622bf3c96857206351ba97e1af16c30d7a74ee38970e434e9407e",
+    "bytes": 1117320736,
+    "license": "Apache-2.0",
+    "source": "https://huggingface.co/Qwen/Qwen2.5-1.5B-Instruct-GGUF"
+  },
+  "trained": {
+    "name": "Corali operazioni v1 sperimentale",
+    "base": {
+      "file": "source-q4_k_m.gguf",
+      "sha256": "ac4ff82fb4b8225c38db1a7d4da285625584d99900e662074550517206188767"
+    },
+    "adapter": {
+      "file": "operations-v1.gguf",
+      "sha256": "0c5403e3500a2f9e848305f1938f5a50b5e9cc76435f02f23f6a51d21100bce1"
+    },
+    "validationCorrect": 31,
+    "validationCases": 36,
+    "testCorrect": 56,
+    "testCases": 60,
+    "requiresConfirmation": true,
+    "automaticRoutingApproved": false
+  }
+}

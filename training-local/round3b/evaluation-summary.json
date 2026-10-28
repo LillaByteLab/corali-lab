@@ -1,0 +1,280 @@
+{
+  "status": "trained_evaluated_quality_insufficient",
+  "optimizerSteps": 132,
+  "trainableParameters": 311296,
+  "continuedFrom": "round3/run/epoch-2",
+  "selectedEpoch": 2,
+  "selectedMode": "epoch2",
+  "validation": {
+    "base": {
+      "routingCorrect": 13,
+      "exactActionCorrect": 11,
+      "endToEndCorrect": 13,
+      "cases": 36,
+      "byFamily": {
+        "chat": {
+          "correct": 0,
+          "cases": 6
+        },
+        "clarify": {
+          "correct": 2,
+          "cases": 6
+        },
+        "count": {
+          "correct": 5,
+          "cases": 6
+        },
+        "count_formula": {
+          "correct": 0,
+          "cases": 6
+        },
+        "discount": {
+          "correct": 6,
+          "cases": 6
+        },
+        "sum_formula": {
+          "correct": 0,
+          "cases": 6
+        }
+      },
+      "generalPreserved": 12,
+      "generalCorrect": 11,
+      "generalCases": 12,
+      "safeRefusals": 6,
+      "safetyCases": 6
+    },
+    "previous": {
+      "routingCorrect": 25,
+      "exactActionCorrect": 25,
+      "endToEndCorrect": 25,
+      "cases": 36,
+      "byFamily": {
+        "chat": {
+          "correct": 3,
+          "cases": 6
+        },
+        "clarify": {
+          "correct": 1,
+          "cases": 6
+        },
+        "count": {
+          "correct": 6,
+          "cases": 6
+        },
+        "count_formula": {
+          "correct": 5,
+          "cases": 6
+        },
+        "discount": {
+          "correct": 4,
+          "cases": 6
+        },
+        "sum_formula": {
+          "correct": 6,
+          "cases": 6
+        }
+      },
+      "generalPreserved": 12,
+      "generalCorrect": 11,
+      "generalCases": 12,
+      "safeRefusals": 6,
+      "safetyCases": 6
+    },
+    "epoch1": {
+      "routingCorrect": 28,
+      "exactActionCorrect": 28,
+      "endToEndCorrect": 28,
+      "cases": 36,
+      "byFamily": {
+        "chat": {
+          "correct": 3,
+          "cases": 6
+        },
+        "clarify": {
+          "correct": 2,
+          "cases": 6
+        },
+        "count": {
+          "correct": 6,
+          "cases": 6
+        },
+        "count_formula": {
+          "correct": 5,
+          "cases": 6
+        },
+        "discount": {
+          "correct": 6,
+          "cases": 6
+        },
+        "sum_formula": {
+          "correct": 6,
+          "cases": 6
+        }
+      },
+      "generalPreserved": 12,
+      "generalCorrect": 11,
+      "generalCases": 12,
+      "safeRefusals": 6,
+      "safetyCases": 6
+    },
+    "epoch2": {
+      "routingCorrect": 31,
+      "exactActionCorrect": 31,
+      "endToEndCorrect": 31,
+      "cases": 36,
+      "byFamily": {
+        "chat": {
+          "correct": 3,
+          "cases": 6
+        },
+        "clarify": {
+          "correct": 5,
+          "cases": 6
+        },
+        "count": {
+          "correct": 6,
+          "cases": 6
+        },
+        "count_formula": {
+          "correct": 5,
+          "cases": 6
+        },
+        "discount": {
+          "correct": 6,
+          "cases": 6
+        },
+        "sum_formula": {
+          "correct": 6,
+          "cases": 6
+        }
+      },
+      "generalPreserved": 12,
+      "generalCorrect": 11,
+      "generalCases": 12,
+      "safeRefusals": 6,
+      "safetyCases": 6
+    }
+  },
+  "test": {
+    "base": {
+      "routingCorrect": 27,
+      "exactActionCorrect": 26,
+      "endToEndCorrect": 27,
+      "cases": 60,
+      "byFamily": {
+        "chat": {
+          "correct": 1,
+          "cases": 10
+        },
+        "clarify": {
+          "correct": 2,
+          "cases": 10
+        },
+        "count": {
+          "correct": 10,
+          "cases": 10
+        },
+        "count_formula": {
+          "correct": 0,
+          "cases": 10
+        },
+        "discount": {
+          "correct": 9,
+          "cases": 10
+        },
+        "sum_formula": {
+          "correct": 5,
+          "cases": 10
+        }
+      },
+      "generalPreserved": 12,
+      "generalCorrect": 11,
+      "generalCases": 12,
+      "safeRefusals": 6,
+      "safetyCases": 6
+    },
+    "previous": {
+      "routingCorrect": 46,
+      "exactActionCorrect": 46,
+      "endToEndCorrect": 46,
+      "cases": 60,
+      "byFamily": {
+        "chat": {
+          "correct": 10,
+          "cases": 10
+        },
+        "clarify": {
+          "correct": 4,
+          "cases": 10
+        },
+        "count": {
+          "correct": 10,
+          "cases": 10
+        },
+        "count_formula": {
+          "correct": 6,
+          "cases": 10
+        },
+        "discount": {
+          "correct": 6,
+          "cases": 10
+        },
+        "sum_formula": {
+          "correct": 10,
+          "cases": 10
+        }
+      },
+      "generalPreserved": 12,
+      "generalCorrect": 11,
+      "generalCases": 12,
+      "safeRefusals": 6,
+      "safetyCases": 6
+    },
+    "epoch2": {
+      "routingCorrect": 56,
+      "exactActionCorrect": 55,
+      "endToEndCorrect": 56,
+      "cases": 60,
+      "byFamily": {
+        "chat": {
+          "correct": 10,
+          "cases": 10
+        },
+        "clarify": {
+          "correct": 8,
+          "cases": 10
+        },
+        "count": {
+          "correct": 10,
+          "cases": 10
+        },
+        "count_formula": {
+          "correct": 8,
+          "cases": 10
+        },
+        "discount": {
+          "correct": 10,
+          "cases": 10
+        },
+        "sum_formula": {
+          "correct": 10,
+          "cases": 10
+        }
+      },
+      "generalPreserved": 12,
+      "generalCorrect": 11,
+      "generalCases": 12,
+      "safeRefusals": 6,
+      "safetyCases": 6
+    }
+  },
+  "necessaryPrototypeGatePassed": false,
+  "routingImprovementOverBaseObserved": true,
+  "releaseAllowed": false,
+  "deployed": false,
+  "finalTestUsedForSelectionOrTraining": false,
+  "scope": "Real LoRA training of operation selection. Numerical correctness comes from local deterministic functions using original typed data, not from neural arithmetic. General replies use base with adapters off. PDF/OCR extraction, installed app integration and x64 hardware not tested.",
+  "baseSha256": "ac4ff82fb4b8225c38db1a7d4da285625584d99900e662074550517206188767",
+  "selectedNewCheckpoint": true,
+  "adapterSha256": "0c5403e3500a2f9e848305f1938f5a50b5e9cc76435f02f23f6a51d21100bce1"
+}
