@@ -27,7 +27,7 @@ A. Per il nuovo suggeritore estrai CoraliLab-AI-locale-v1.zip. Copia la cartella
    ai-pack accanto al CoraliLab.exe che usi (anche se lo hai installato).
    Per trovarlo dall'icona: clic destro sull'icona > Apri percorso file.
    I due file GGUF devono trovarsi direttamente dentro ai-pack.
-B. Apri Assistente e strumenti > Scarica i componenti AI. Con ai-pack presente,
+B. Apri Assistente e strumenti > Prepara i componenti AI. Con ai-pack presente,
    viene scaricato soltanto il motore corretto per il PC; il modello e gia li.
    Il primo download richiede internet. Poi prompt e documenti restano sul PC.
 C. Apri Calcoli e formule verificati. Per una formula, compila B2:AF2 e sigla P.

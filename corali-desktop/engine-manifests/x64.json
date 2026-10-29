@@ -1,0 +1,39 @@
+{
+  "version": "0.26.10",
+  "architecture": "x64",
+  "source": "https://github.com/realfulvio/cedro/releases/tag/v0.26.10",
+  "installerSha256": "6abf704237ae5af3a7ef5f58312d174439ac2588fcdfdabb3b77fc96d56ce391",
+  "cedroSha256": "e2b0c3cc76de522d1fe68aadbbca8aff562ca0abceee97f1a6a988bdde760900",
+  "workers": [
+    {
+      "name": "cedro-trascrivi-avx2.exe",
+      "url": "https://github.com/realfulvio/cedro/releases/download/motori-v0.26.10/cedro-trascrivi-0.26.10-windows-x64-avx2.exe",
+      "sha256": "837f394d5ac0094aed5579495ddd2bcfcceb1de891fe0039cbe9e59a7196934e"
+    },
+    {
+      "name": "cedro-trascrivi-avx512.exe",
+      "url": "https://github.com/realfulvio/cedro/releases/download/motori-v0.26.10/cedro-trascrivi-0.26.10-windows-x64-avx512.exe",
+      "sha256": "1778077b3b5d1367dcc9fd0ac7c8a1615e034399fab96e62e92042ad98372892"
+    },
+    {
+      "name": "cedro-trascrivi-avx512vnni.exe",
+      "url": "https://github.com/realfulvio/cedro/releases/download/motori-v0.26.10/cedro-trascrivi-0.26.10-windows-x64-avx512vnni.exe",
+      "sha256": "d4f94565d750e629b648205ee647dc0ef340e33b38474d89edd5355108255bea"
+    },
+    {
+      "name": "cedro-trascrivi-avxvnni.exe",
+      "url": "https://github.com/realfulvio/cedro/releases/download/motori-v0.26.10/cedro-trascrivi-0.26.10-windows-x64-avxvnni.exe",
+      "sha256": "5a3d0ac2be12d3a10eb7d0780bd083ae04691121f5802678b8ff40607450ff08"
+    },
+    {
+      "name": "cedro-trascrivi-base.exe",
+      "url": "https://github.com/realfulvio/cedro/releases/download/motori-v0.26.10/cedro-trascrivi-0.26.10-windows-x64-base.exe",
+      "sha256": "f8ec3415e3cb5bcda2ccb7c2c644711caadcb488b0ebc3901031edda568d4060"
+    },
+    {
+      "name": "cedro-trascrivi-vulkan.exe",
+      "url": "https://github.com/realfulvio/cedro/releases/download/motori-v0.26.10/cedro-trascrivi-0.26.10-windows-x64-vulkan.exe",
+      "sha256": "1059c762919304dacb1d6b359848642ad0c3d1db750249f8a9169e3645495883"
+    }
+  ]
+}

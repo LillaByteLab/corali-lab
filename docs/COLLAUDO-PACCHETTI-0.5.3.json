@@ -1,0 +1,28 @@
+[
+  {
+    "architecture": "arm64",
+    "version": "0.5.3-beta",
+    "cedro": "0.26.10",
+    "nativePdfConversion": true,
+    "syntheticPdfToExcel": true,
+    "transcriptionWordAndText": true,
+    "localAiInference": true,
+    "trainedProposal": true,
+    "publicWebToMp3": true,
+    "cleanupRestoreHashesMatch": true,
+    "x64Emulated": false
+  },
+  {
+    "architecture": "x64",
+    "version": "0.5.3-beta",
+    "cedro": "0.26.10",
+    "nativePdfConversion": true,
+    "syntheticPdfToExcel": true,
+    "transcriptionWordAndText": true,
+    "localAiInference": true,
+    "trainedProposal": true,
+    "publicWebToMp3": true,
+    "cleanupRestoreHashesMatch": true,
+    "x64Emulated": true
+  }
+]

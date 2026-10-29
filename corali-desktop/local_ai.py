@@ -6,10 +6,18 @@ from local_operations import messages, parse_action, requires_router, NeedsRevie
 
 
 class LocalAI:
-    def __init__(self, root, manifest, pack_dir=None):
+    def __init__(self, root, manifest, pack_dir=None, architecture=None):
         self.root=Path(root)/'ai';self.manifest=json.loads(Path(manifest).read_text(encoding='utf8'))
-        self.arch='arm64' if platform.machine().upper() in ('ARM64','AARCH64') or os.environ.get('PROCESSOR_ARCHITEW6432','').upper()=='ARM64' else 'x64'
+        # A packaged x64 application can run on an ARM host in emulation.
+        # Its engine manifest is the authority; host environment variables are not.
+        self.arch=architecture or ('arm64' if platform.machine().upper() in ('ARM64','AARCH64') else 'x64')
+        if self.arch not in ('arm64','x64'):raise ValueError('Architettura AI non supportata.')
         self.runtime=self.root/('runtime-'+self.manifest['runtimeVersion']+'-'+self.arch)
+        self.backend='cpu';self.backend_note=''
+        try:
+            if json.loads((self.root/'accelerator.json').read_text('utf8')).get('backend')=='vulkan':
+                self.backend='vulkan';self.runtime=self.runtime_dir('vulkan')
+        except (OSError,ValueError):pass
         self.model=self.root/self.manifest['model']['file'];self.process=None;self.lock=threading.Lock();self.key=secrets.token_urlsafe(32);self.origin=''
         self.log=None;self.active_profile=None;self.verified_files={}
         self.pack=Path(pack_dir) if pack_dir is not None else ((Path(sys.executable).parent if getattr(sys,'frozen',False) else Path(__file__).parent)/'ai-pack')
@@ -32,7 +40,40 @@ class LocalAI:
 
     def status(self):
         trained=self.trained_files()
-        return {'ready':(bool(trained) or self.model.is_file()) and (self.runtime/'llama-server.exe').is_file(),'running':self.process is not None and self.process.poll() is None,'model':self.manifest['model']['name'],'architecture':self.arch,'downloadBytes':self.manifest['model']['bytes'],'trainedAvailable':bool(trained),'trainedExperimental':True}
+        return {'ready':(bool(trained) or self.model.is_file()) and (self.runtime/'llama-server.exe').is_file(),'running':self.process is not None and self.process.poll() is None,'model':self.manifest['model']['name'],'architecture':self.arch,'downloadBytes':self.manifest['model']['bytes'],'trainedAvailable':bool(trained),'trainedExperimental':True,'backend':self.backend,'backendNote':self.backend_note,'vulkanAvailable':self.arch in self.manifest.get('vulkanRuntime',{})}
+
+    def runtime_dir(self,backend):
+        return self.root/('runtime-'+self.manifest['runtimeVersion']+'-'+self.arch+('-vulkan' if backend=='vulkan' else ''))
+
+    def runtime_info(self,backend):
+        return self.manifest['vulkanRuntime' if backend=='vulkan' else 'runtime'][self.arch]
+
+    def verify_runtime(self,folder,info):
+        expected=info.get('files',{})
+        if 'llama-server.exe' not in expected:raise ValueError('Manifest AI incompleto: reinstalla Coralì Lab.')
+        actual={p.name for p in folder.iterdir() if p.suffix.lower() in ('.exe','.dll')}
+        if actual!=set(expected):raise ValueError('File del motore AI mancanti o non previsti. Ripristina i componenti AI.')
+        for name,digest in expected.items():
+            path=folder/name
+            if Path(name).name!=name or path.is_symlink() or path.is_junction():raise ValueError('Percorso del motore AI non valido.')
+            with path.open('rb') as stream:actual=hashlib.file_digest(stream,'sha256').hexdigest()
+            if actual!=digest:raise ValueError('Motore AI non integro: '+name+'. Ripristina i componenti AI.')
+
+    def setup_runtime(self,backend,progress,cancelled):
+        folder=self.runtime_dir(backend);info=self.runtime_info(backend)
+        if not (folder/'llama-server.exe').is_file():
+            archive=self.root/('runtime-'+backend+'.zip');self.download(info,archive,progress,cancelled)
+            folder.mkdir(exist_ok=True)
+            with zipfile.ZipFile(archive) as z:
+                seen=set()
+                for entry in z.infolist():
+                    name=Path(entry.filename).name
+                    if entry.is_dir() or Path(name).suffix.lower() not in ('.exe','.dll','.txt','.md'):continue
+                    if name in seen:raise ValueError('Archivio AI con nomi duplicati.')
+                    seen.add(name);(folder/name).write_bytes(z.read(entry))
+            archive.unlink()
+        self.verify_runtime(folder,info)
+        return folder
 
     def download(self, info, dest, progress, cancelled):
         dest.parent.mkdir(parents=True,exist_ok=True);part=dest.with_suffix(dest.suffix+'.part');digest=hashlib.sha256()
@@ -46,19 +87,18 @@ class LocalAI:
             part.replace(dest)
         finally:part.unlink(missing_ok=True)
 
-    def setup(self, progress, cancelled):
+    def setup(self, progress, cancelled, backend=None):
         with self.lock:
             self.root.mkdir(parents=True,exist_ok=True)
             if shutil.disk_usage(self.root).free < 1700*1024*1024:raise ValueError('Servono almeno 1,7 GB liberi per scaricare il modello AI.')
-            if not (self.runtime/'llama-server.exe').is_file():
-                archive=self.root/'runtime.zip';self.download(self.manifest['runtime'][self.arch],archive,progress,cancelled)
-                self.runtime.mkdir(exist_ok=True)
-                with zipfile.ZipFile(archive) as z:
-                    for entry in z.infolist():
-                        target=self.runtime/Path(entry.filename).name
-                        if entry.is_dir():continue
-                        if target.suffix.lower() in ('.exe','.dll','.txt','.md'):target.write_bytes(z.read(entry))
-                archive.unlink()
+            backend=backend or self.backend
+            if backend not in ('cpu','vulkan') or (backend=='vulkan' and self.arch not in self.manifest.get('vulkanRuntime',{})):
+                raise ValueError('Accelerazione non disponibile per questo PC.')
+            self.stop()
+            self.setup_runtime('cpu',progress,cancelled)
+            self.runtime=self.setup_runtime(backend,progress,cancelled) if backend=='vulkan' else self.runtime_dir('cpu')
+            self.backend=backend;self.backend_note=''
+            (self.root/'accelerator.json').write_text(json.dumps({'backend':backend}),encoding='utf8')
             trained=self.trained_files()
             if trained:
                 for path,key in zip(trained,('base','adapter')):self.verify(path,self.manifest['trained'][key])
@@ -75,30 +115,53 @@ class LocalAI:
         self.active_profile=None
 
     def start(self, cancelled, trained=False):
+        try:
+            return self._start(cancelled,trained)
+        except RuntimeError:
+            self.stop()
+            if self.backend!='vulkan' or cancelled.is_set():raise ValueError('Il motore AI non riesce ad avviarsi. Consulta ai/runtime.log.')
+            if (self.root/'runtime.log').exists():shutil.copy2(self.root/'runtime.log',self.root/'runtime-gpu-last.log')
+            self.backend='cpu';self.runtime=self.runtime_dir('cpu')
+            self.backend_note='GPU non disponibile: AI avviata con il processore.'
+            (self.root/'accelerator.json').write_text(json.dumps({'backend':'cpu'}),encoding='utf8')
+            try:return self._start(cancelled,trained)
+            except RuntimeError as error:raise ValueError('Avvio AI non riuscito anche con il processore. Consulta ai/runtime.log.') from error
+
+    def _start(self, cancelled, trained=False):
         if not self.status()['ready']:raise ValueError('Scarica prima i componenti AI dalla sezione Assistente locale.')
         files=self.trained_files()
         if trained and not files:raise ValueError('Per il suggeritore addestrato estrai il pacchetto AI accanto a CoraliLab.exe. I calcoli manuali funzionano anche senza AI.')
         profile='operations' if trained else 'chat'
         if self.process and self.process.poll() is None and self.active_profile==profile:return
         self.stop()
+        self.verify_runtime(self.runtime,self.runtime_info(self.backend))
         model=files[0] if files else self.model
         self.verify(model,self.manifest['trained']['base'] if files else self.manifest['model'])
         if trained:self.verify(files[1],self.manifest['trained']['adapter'])
         with socket.socket() as sock:sock.bind(('127.0.0.1',0));port=sock.getsockname()[1]
         self.origin='http://127.0.0.1:'+str(port)
         args=[str(self.runtime/'llama-server.exe'),'-m',str(model),'--host','127.0.0.1','--port',str(port),'--api-key',self.key,'-c','4096','-t',str(max(1,min(6,(os.cpu_count() or 4)-2))),'-np','1','--offline','--no-webui']
+        args+=['-ngl','99' if self.backend=='vulkan' else '0']
         if trained:args+=['--lora',str(files[1])]
         self.log=(self.root/'runtime.log').open('wb')
-        self.process=subprocess.Popen(args,stdin=subprocess.DEVNULL,stdout=self.log,stderr=self.log,creationflags=0x08000000 if os.name=='nt' else 0)
+        try:self.process=subprocess.Popen(args,stdin=subprocess.DEVNULL,stdout=self.log,stderr=self.log,cwd=str(self.runtime),creationflags=0x08000000 if os.name=='nt' else 0)
+        except OSError as error:raise RuntimeError('Avvio del processo AI fallito.') from error
         for _ in range(180):
             if cancelled.is_set():self.stop();raise ValueError('Avvio AI annullato.')
-            if self.process.poll() is not None:raise ValueError('Il motore AI si è fermato durante l’avvio. Consulta ai/runtime.log.')
+            if self.process.poll() is not None:raise RuntimeError('Il motore AI si è fermato durante l’avvio.')
             try:
                 r=self.http.open(urllib.request.Request(self.origin+'/health',headers={'Authorization':'Bearer '+self.key}),timeout=1)
-                if r.status==200:self.active_profile=profile;return
+                if r.status==200:
+                    if self.backend=='vulkan':
+                        self.log.flush()
+                        log=(self.root/'runtime.log').read_text('utf8',errors='replace')
+                        import re
+                        if not re.search(r'offloaded [1-9][0-9]*/[0-9]+ layers to GPU',log):raise RuntimeError('Nessun livello del modello caricato sulla GPU.')
+                    self.active_profile=profile;return
+            except RuntimeError:raise
             except Exception:pass
             time.sleep(.5)
-        self.stop();raise ValueError('Avvio AI oltre il tempo previsto.')
+        self.stop();raise RuntimeError('Avvio AI oltre il tempo previsto.')
 
     def suggest(self,prompt,data,cancelled):
         if not isinstance(prompt,str) or not 1<=len(prompt.strip())<=4000:raise ValueError('Scrivi una richiesta fino a 4000 caratteri.')

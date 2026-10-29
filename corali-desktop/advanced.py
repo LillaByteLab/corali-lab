@@ -10,7 +10,7 @@ COMMANDS={'advancedStatus','preferences','renameCopy','aiSetup','aiAsk','aiStop'
 
 class Advanced:
     def __init__(self,app,root):
-        self.app=app;self.ai=LocalAI(app.root,root/'ai-manifest.json');self.settings=app.root/'preferences.json'
+        self.app=app;self.ai=LocalAI(app.root,root/'ai-manifest.json',architecture=app.engine_info['architecture']);self.settings=app.root/'preferences.json'
 
     def preferences(self):
         try:return json.loads(self.settings.read_text(encoding='utf8'))
@@ -59,7 +59,7 @@ class Advanced:
         if not a.busy.acquire(blocking=False):raise ValueError('Attendi che termini l’elaborazione in corso.')
         a.cancel.clear()
         try:
-            if cmd=='aiSetup':return self.ai.setup(lambda v:setattr(a,'progress',v),a.cancel)
+            if cmd=='aiSetup':return self.ai.setup(lambda v:setattr(a,'progress',v),a.cancel,p.get('backend'))
             if cmd=='aiSuggestOperation':
                 a.progress={'label':'L’assistente suggerisce una operazione da confermare','percent':-1}
                 return self.ai.suggest(p.get('prompt',''),p.get('data'),a.cancel)

@@ -25,7 +25,7 @@ import csv_tools
 import pdf_tools
 import advanced
 
-VERSION='0.5.2-beta'
+VERSION='0.5.3-beta'
 ROOT=Path(getattr(sys,'_MEIPASS',Path(__file__).resolve().parent))
 ASSETS=ROOT/'assets'
 NO_WINDOW=0x08000000 if os.name=='nt' else 0
@@ -64,6 +64,9 @@ class Application:
         self.token=secrets.token_urlsafe(32);self.origin='';self.cookie='';self.window=None
         self.sessions={};self.busy=threading.Lock();self.cancel=threading.Event();self.child=None;self.progress={'label':'Pronto','percent':0}
         self.previews=threading.Lock();self.office_lock=threading.Lock()
+        self.workspace_lock=threading.RLock()
+        from workspace_cleanup import WorkspaceCleanup
+        self.cleanup=WorkspaceCleanup(self)
         self.queue_lock=threading.Lock();self.queue_cancel=threading.Event();self.queue_thread=None
         self.advanced=advanced.Advanced(self,ROOT)
 
@@ -98,8 +101,9 @@ class Application:
 
     def import_bytes(self,name,data):
         if len(data)>250*1024*1024:raise ValueError('Importa file fino a 250 MB.')
-        folder=self.root/'inputs'/uuid.uuid4().hex;folder.mkdir();path=folder/safe_name(name);path.write_bytes(data)
-        return self.meta(path)
+        with self.workspace_lock:
+            folder=self.root/'inputs'/uuid.uuid4().hex;folder.mkdir();path=folder/safe_name(name);path.write_bytes(data)
+            return self.meta(path)
 
     def folder(self):
         path=self.root/'outputs'/(time.strftime('%Y%m%d-%H%M%S')+'-'+uuid.uuid4().hex[:8]);path.mkdir();return path
@@ -168,25 +172,24 @@ class Application:
     def prepare_native_engine(self):
         cache=self.engine_store()/'Cedro/trascrizione';cache.mkdir(parents=True,exist_ok=True)
         # Reuse immutable model files, never mix architectures in the original Cedro cache.
-        for official in [self.root/'engine-data/Cedro/trascrizione',*(base/'Cedro/trascrizione' for base in self.local_bases())]:
+        for official in [self.root/'engine-data/Cedro/trascrizione',*sorted((self.root/'engine-data').glob('*/Cedro/trascrizione')),*(base/'Cedro/trascrizione' for base in self.local_bases())]:
             for source in official.glob('ggml-*.bin*'):
                 if source.suffix not in ('.bin','.sha256'):continue
                 dest=cache/source.name
                 if not dest.exists():
                     try:os.link(source,dest)
                     except OSError:shutil.copy2(source,dest)
-        if self.engine_info['architecture']=='x64':
-            for variant in ('base','avx2','vulkan'):
-                source=ROOT/'engine/native-x64'/('cedro-trascrivi-'+variant+'.exe');dest=cache/source.name
-                if source.is_file() and (not dest.exists() or dest.stat().st_size!=source.stat().st_size):shutil.copy2(source,dest)
-                if source.is_file():dest.with_suffix('.exe.version').write_text(self.engine_info['version'],encoding='utf8')
-            return
-        if not self.native_arm():return
-        # ARM64 cores use correctly named native workers; keep the legacy mapping only for old x64 cores.
-        variants=[(name,name) for name in ('base','dotprod','i8mm','vulkan')] if self.engine_info['architecture']=='arm64' else [('dotprod','avx2'),('vulkan','vulkan')]
-        for original,alias in variants:
-            source=ROOT/'engine/native-arm64'/('cedro-trascrivi-'+original+'.exe');dest=cache/('cedro-trascrivi-'+alias+'.exe')
-            if not dest.exists() or dest.stat().st_size!=source.stat().st_size:shutil.copy2(source,dest)
+        arch=self.engine_info['architecture']
+        for worker in self.engine_info.get('workers',[]):
+            name=worker['name']
+            if Path(name).name!=name or not re.fullmatch(r'cedro-trascrivi-[a-z0-9]+\.exe',name):
+                raise ValueError('Metadati del motore di trascrizione non validi.')
+            source=ROOT/'engine'/('native-'+arch)/name;dest=cache/name
+            def digest(path):
+                with path.open('rb') as stream:return hashlib.file_digest(stream,'sha256').hexdigest()
+            if not source.is_file() or digest(source)!=worker['sha256']:
+                raise ValueError('Motore di trascrizione non integro: '+name)
+            if not dest.exists() or digest(dest)!=worker['sha256']:shutil.copy2(source,dest)
             dest.with_suffix('.exe.version').write_text(self.engine_info['version'],encoding='utf8')
 
     def engine_settings(self,options=None,cpu=False):
@@ -234,11 +237,8 @@ class Application:
         return outputs
 
     def web_download(self,p,folder):
-        from yt_dlp import YoutubeDL
-        url=p.get('url','');parsed=urllib.parse.urlsplit(url)
-        if parsed.scheme not in ('http','https') or not parsed.hostname or parsed.username or parsed.password:raise ValueError('Inserisci un link pubblico HTTP o HTTPS valido.')
-        for address in socket.getaddrinfo(parsed.hostname,parsed.port or (443 if parsed.scheme=='https' else 80),type=socket.SOCK_STREAM):
-            if not ipaddress.ip_address(address[4][0]).is_global:raise ValueError('Usa un indirizzo di un sito pubblico.')
+        from safe_web import PublicYoutubeDL,validate_url
+        url=p.get('url','');validate_url(url)
         def hook(event):
             if self.cancel.is_set():raise ValueError('Download annullato.')
             total=event.get('total_bytes') or event.get('total_bytes_estimate') or 0
@@ -255,9 +255,11 @@ class Application:
         node=shutil.which('node')
         if node:options['js_runtimes']={'node':{'path':node}}
         if audio:options['postprocessors']=[{'key':'FFmpegExtractAudio','preferredcodec':'mp3','preferredquality':'192'}]
-        with YoutubeDL(options) as ydl:ydl.download([url])
+        options.update(proxy='',external_downloader={'default':'native'},hls_prefer_native=True,
+                       postprocessor_args={'ffmpeg_i':['-protocol_whitelist','file,pipe']})
+        with PublicYoutubeDL(options) as ydl:ydl.download([url])
         if self.cancel.is_set():raise ValueError('Download annullato.')
-        outputs=[f for f in folder.iterdir() if f.is_file() and not f.name.endswith(('.part','.ytdl'))]
+        outputs=[f for f in folder.iterdir() if f.is_file() and not f.name.startswith('.') and not f.name.endswith(('.part','.ytdl'))]
         if p.get('transcribe'):outputs.extend(self.transcript(outputs.copy(),p,folder))
         return outputs
 
@@ -366,14 +368,17 @@ class Application:
         if self.queue_lock.locked() and self.queue_thread!=threading.get_ident() and cmd not in ('progress','cancel','init','files','advancedStatus'):
             raise ValueError('Attendi che termini la coda, oppure annullala.')
         if cmd in advanced.COMMANDS:return self.advanced.dispatch(p)
+        if cmd in ('cleanupPreview','cleanupApply','cleanupRestore','cleanupStatus','cleanupPurgePreview','cleanupPurge'):
+            return self.cleanup.dispatch(p)
         if cmd=='exit':
             if self.window:self.window.destroy()
             return {}
-        if cmd=='init':return {'files':self.scan(),'models':self.models(),'device':'Coralì Lab PC','android':VERSION,'busy':self.busy.locked()}
+        if cmd=='init':return {'files':self.scan(),'models':self.models(),'device':'Coralì Lab PC','android':VERSION,'version':VERSION,'engineVersion':self.engine_info['version'],'busy':self.busy.locked()}
         if cmd=='files':return {'files':self.scan(),'models':self.models()}
         if cmd=='progress':return {**self.progress,'busy':self.busy.locked() or self.queue_lock.locked()}
         if cmd=='cancel':self.stop();return {}
-        if cmd=='openOffice':return self.new_office(self.resolve(p.get('id')))
+        if cmd=='openOffice':
+            with self.office_lock, self.workspace_lock:return self.new_office(self.resolve(p.get('id')))
         if cmd=='pdfInfo':
             with self.previews:return pdf_tools.info(self.resolve(p.get('id')),p)
         if cmd=='catalog':

@@ -1,0 +1,45 @@
+{
+  "version": "0.5.3-beta",
+  "cedro": "0.26.10",
+  "unitTests": {
+    "arm64": 66,
+    "x64Emulated": 66
+  },
+  "packagedTests": [
+    {
+      "architecture": "arm64",
+      "version": "0.5.3-beta",
+      "cedro": "0.26.10",
+      "nativePdfConversion": true,
+      "syntheticPdfToExcel": true,
+      "transcriptionWordAndText": true,
+      "localAiInference": true,
+      "trainedProposal": true,
+      "publicWebToMp3": true,
+      "cleanupRestoreHashesMatch": true,
+      "x64Emulated": false
+    },
+    {
+      "architecture": "x64",
+      "version": "0.5.3-beta",
+      "cedro": "0.26.10",
+      "nativePdfConversion": true,
+      "syntheticPdfToExcel": true,
+      "transcriptionWordAndText": true,
+      "localAiInference": true,
+      "trainedProposal": true,
+      "publicWebToMp3": true,
+      "cleanupRestoreHashesMatch": true,
+      "x64Emulated": true
+    }
+  ],
+  "vulkan": {
+    "arm64": "CPU fallback verified",
+    "x64Emulated": "CPU fallback verified",
+    "accelerationProven": false
+  },
+  "physicalIntelAmdTest": false,
+  "physicalMicrophoneTest": false,
+  "trainingChanged": false,
+  "originalUserDocumentsUsed": false
+}

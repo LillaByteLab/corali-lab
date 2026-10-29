@@ -1,10 +1,14 @@
-# Coralì Lab 0.5.2 beta
+# Coralì Lab 0.5.3 beta
 
 ## Origini e riconoscimenti
 
 Coralì Lab è nato a partire da [Cedro](https://github.com/realfulvio/cedro), creato da **Luca Accorsi ([realfulvio](https://github.com/realfulvio))** e distribuito con licenza MIT. Cedro ha fornito la base iniziale del progetto e il motore per le conversioni, l’OCR e le trascrizioni integrate. A questo lavoro Coralì Lab affianca la propria interfaccia e le funzioni aggiuntive per documenti, fogli di calcolo e AI locale. Grazie a Luca per aver condiviso il suo lavoro come software open source.
 
-La beta 0.5.2 incorpora **Cedro 0.21.2**: [release originale](https://github.com/realfulvio/cedro/releases/tag/v0.21.2). Coralì Lab è un progetto indipendente; le licenze e i riconoscimenti dei componenti originali sono conservati.
+La beta 0.5.3 incorpora **Cedro 0.26.10**: [release originale](https://github.com/realfulvio/cedro/releases/tag/v0.26.10). Coralì Lab è un progetto indipendente; le licenze e i riconoscimenti dei componenti originali sono conservati.
+
+## Aggiornamento 0.5.3 del 29 ottobre 2026
+
+Cedro 0.26.10, controlli sui download web e sui file del runtime AI, cestino con anteprima e ripristino, selezione Vulkan facoltativa. Nessuna pulizia automatica. La GPU del Surface non ha completato l’avvio: verificato il ripiego sulla CPU, non una maggiore velocità. Dettagli in RELEASE-0.5.3.txt.
 
 ## Collaudo aggiuntivo del 28 ottobre 2026
 
