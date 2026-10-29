@@ -15,7 +15,10 @@ Sorgente della versione: https://pypi.org/project/PyMuPDF/1.28.2/#files
 Il pacchetto sorgente sdist e elencato con hash in upstream-sources.json.
 La versione MuPDF inclusa va ricostruita secondo lo script di build dello sdist.
 
-Cedro 0.21.2: MIT. Eseguito come programma separato tramite CLI.
+Cedro 0.21.2, di Luca Accorsi (realfulvio), licenza MIT.
+https://github.com/realfulvio/cedro
+Base iniziale di Corali Lab e motore integrato per conversioni, OCR e
+trascrizioni. Eseguito come programma separato tramite CLI.
 https://github.com/realfulvio/cedro/releases/tag/v0.21.2
 https://github.com/realfulvio/cedro/tree/v0.21.2
 Metadati, digest dei worker e licenze dentro _internal/engine.
@@ -62,4 +65,5 @@ Vedere MODEL-CARD.txt nel pacchetto AI e i dati/script nel pacchetto sorgenti.
 
 STATO: sorgenti Corali e archivi sorgente PyMuPDF/Pillow preparati insieme
 alla beta. FFmpeg e stato escluso dai binari distribuiti. Gli altri componenti
-conservano licenze e riferimenti sorgente. Pubblicazione non ancora effettuata.
+conservano licenze e riferimenti sorgente. Beta pubblicata con sorgenti e pacchetti:
+https://github.com/LillaByteLab/corali-lab/releases/tag/v0.5.2-beta

@@ -1,5 +1,11 @@
 # Coralì Lab 0.5.2 beta
 
+## Origini e riconoscimenti
+
+Coralì Lab è nato a partire da [Cedro](https://github.com/realfulvio/cedro), creato da **Luca Accorsi ([realfulvio](https://github.com/realfulvio))** e distribuito con licenza MIT. Cedro ha fornito la base iniziale del progetto e il motore per le conversioni, l’OCR e le trascrizioni integrate. A questo lavoro Coralì Lab affianca la propria interfaccia e le funzioni aggiuntive per documenti, fogli di calcolo e AI locale. Grazie a Luca per aver condiviso il suo lavoro come software open source.
+
+La beta 0.5.2 incorpora **Cedro 0.21.2**: [release originale](https://github.com/realfulvio/cedro/releases/tag/v0.21.2). Coralì Lab è un progetto indipendente; le licenze e i riconoscimenti dei componenti originali sono conservati.
+
 ## Collaudo aggiuntivo del 28 ottobre 2026
 
 16 PDF con dati inventati: mesi di 28–31 giorni, tre scale di pagina, giorni mancanti o duplicati, scansione e totale incoerente. Le intestazioni incomplete vengono rifiutate; gli scostamenti nei totali restano segnalati. I registri reali già verificati conservano gli stessi risultati.
@@ -37,7 +43,7 @@ Qwen2.5 1.5B Instruct Q4_K_M e llama.cpp b11936, con URL e digest fissati in ai-
 
 Servizio Coralì su loopback e token di sessione. Documenti Office in iframe con origine opaca, senza accesso al servizio e con risorse esterne bloccate. Il microfono è consentito solo alla pagina locale principale quando richiesto dall’app.
 
-I documenti reali di collaudo, email, risultati e cache non appartengono agli esempi pubblici. Gli esempi distribuiti devono essere interamente sintetici. Prima della pubblicazione occorrono verifica delle licenze, audit dati/sorgenti/pacchetti e collaudo x64 fisico. I componenti mantengono le proprie licenze; il codice originale desktop è distribuito sotto AGPL-3.0-only; vedere LICENSE e THIRD-PARTY-SOURCES.txt.
+I documenti reali di collaudo, email, risultati e cache non appartengono agli esempi pubblici. Gli esempi distribuiti devono essere interamente sintetici. La beta pubblicata include gli esiti delle verifiche di licenze e degli audit di dati, sorgenti e pacchetti. Il collaudo x64 fisico resta da eseguire. I componenti mantengono le proprie licenze; il codice originale desktop è distribuito sotto AGPL-3.0-only; vedere LICENSE e THIRD-PARTY-SOURCES.txt.
 
 ## Funzioni precedenti
 

@@ -35,3 +35,11 @@ Le importazioni e i salvataggi lavorano su copie.
 Licenza del codice originale Coralì desktop: AGPL-3.0-only (vedere LICENSE).
 I componenti di terze parti conservano licenze e attribuzioni proprie.
 Leggere THIRD-PARTY-SOURCES.txt per sorgenti e limiti della preparazione pubblica.
+
+ORIGINI E RICONOSCIMENTI
+Corali Lab e nato a partire da Cedro, di Luca Accorsi (realfulvio),
+distribuito con licenza MIT: https://github.com/realfulvio/cedro
+Cedro fornisce il motore integrato per conversioni, OCR e trascrizioni.
+Versione incorporata in questa beta: Cedro 0.21.2.
+Release originale: https://github.com/realfulvio/cedro/releases/tag/v0.21.2
+Corali Lab e un progetto indipendente con interfaccia e funzioni aggiuntive.
