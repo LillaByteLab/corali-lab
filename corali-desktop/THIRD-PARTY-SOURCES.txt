@@ -65,5 +65,5 @@ Vedere MODEL-CARD.txt nel pacchetto AI e i dati/script nel pacchetto sorgenti.
 
 STATO: sorgenti Corali e archivi sorgente PyMuPDF/Pillow preparati insieme
 alla beta. FFmpeg e stato escluso dai binari distribuiti. Gli altri componenti
-conservano licenze e riferimenti sorgente. Sorgenti e pacchetti corrispondenti alla versione 0.5.3:
-https://github.com/LillaByteLab/corali-lab/releases/tag/v0.5.3-beta
+conservano licenze e riferimenti sorgente. Sorgenti e pacchetti corrispondenti alla versione 0.5.4:
+https://github.com/LillaByteLab/corali-lab/releases/tag/v0.5.4-beta

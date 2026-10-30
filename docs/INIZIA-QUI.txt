@@ -1,4 +1,4 @@
-CORALI LAB 0.5.3 BETA - INIZIA QUI
+CORALI LAB 0.5.4 BETA - INIZIA QUI
 
 1. Surface Snapdragon: scarica Windows-arm64.zip. PC Intel/AMD: Windows-x64.zip.
 2. Tasto destro sullo ZIP > Estrai tutto. Non avviare il programma dentro lo ZIP.
@@ -19,3 +19,6 @@ di scrivere ELIMINA. Nessuna pulizia automatica, nessuna modifica agli originali
 
 Restano da collaudare Intel/AMD fisico, microfono reale e GPU realmente accelerata.
 Non inviare documenti riservati nelle Issues pubbliche di GitHub.
+
+Se il motore AI segnala file mancanti o danneggiati: Assistente e strumenti > Ripara il motore AI.
+Richiede internet e conserva il modello e i documenti. Le risposte AI vanno sempre controllate.

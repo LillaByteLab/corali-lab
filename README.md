@@ -1,14 +1,18 @@
 # Coralì Lab
 
-## Origini e riconoscimenti
+## Componenti open source
 
-Coralì Lab è nato a partire da [Cedro](https://github.com/realfulvio/cedro), creato da **Luca Accorsi ([realfulvio](https://github.com/realfulvio))** e distribuito con licenza MIT. Cedro ha fornito la base iniziale del progetto e il motore per le conversioni, l’OCR e le trascrizioni integrate. A questo lavoro Coralì Lab affianca la propria interfaccia e le funzioni aggiuntive per documenti, fogli di calcolo e AI locale. Grazie a Luca per aver condiviso il suo lavoro come software open source.
-
-La beta 0.5.3 incorpora **Cedro 0.26.10**: [release originale](https://github.com/realfulvio/cedro/releases/tag/v0.26.10). Coralì Lab è un progetto indipendente; le licenze e i riconoscimenti dei componenti originali sono conservati.
+Coralì Lab incorpora [Cedro](https://github.com/realfulvio/cedro) **0.26.10**, componente open source con licenza MIT per conversioni, OCR e trascrizioni. [Release originale](https://github.com/realfulvio/cedro/releases/tag/v0.26.10). Coralì Lab è un progetto indipendente; copyright, licenze e sorgenti dei componenti sono conservati e distribuiti con il programma.
 
 Un laboratorio locale per PDF, documenti, fogli di calcolo, trascrizioni e assistenza AI, con un'interfaccia in italiano. È uno strumento di supporto: la compatibilità non equivale a quella di una suite Office completa.
 
-**Versione 0.5.3 beta — prova controllata.** I sorgenti sono disponibili in questo repository. I pacchetti per Windows ARM64 e Intel/AMD e i sorgenti completi sono disponibili nella [release 0.5.3 beta](https://github.com/LillaByteLab/corali-lab/releases/tag/v0.5.3-beta). Gli archivi caricati sono stati verificati con SHA-256.
+**Versione 0.5.4 beta — prova controllata.** I sorgenti sono disponibili in questo repository. I pacchetti per Windows ARM64 e Intel/AMD e i sorgenti completi sono disponibili nella [release 0.5.4 beta](https://github.com/LillaByteLab/corali-lab/releases/tag/v0.5.4-beta). Gli archivi caricati sono stati verificati con SHA-256.
+
+## Aggiornamento 0.5.4
+
+Chiusura delle sessioni Office/CSV, annullamento PDF, lotti che proseguono dopo un file mancante, riparazione verificata del motore AI e minore memoria per hash/scansione dei file. Cedro incorporato resta 0.26.10.
+
+80 test su ARM64 e 80 su x64 in emulazione; collaudo dei pacchetti e riparazione reale del runtime. **AI ancora sperimentale:** le 30 prove sintetiche mostrano miglioramenti parziali e persistenti errori con istruzioni ingannevoli. Nessun nuovo addestramento o modello 4B. Vedi le note e le risposte integrali nella cartella `corali-desktop/evaluation` del repository.
 
 ## Aggiornamento 0.5.3
 
@@ -20,15 +24,15 @@ Il modello e l’adattatore non sono stati riaddestrati in questo aggiornamento.
 
 | PC | Pacchetto da scaricare |
 | --- | --- |
-| Windows 11, Snapdragon / ARM64 | [CoraliLab-0.5.3-Windows-arm64.zip](https://github.com/LillaByteLab/corali-lab/releases/download/v0.5.3-beta/CoraliLab-0.5.3-Windows-arm64.zip) più [CoraliLab-AI-locale-v1.zip](https://github.com/LillaByteLab/corali-lab/releases/download/v0.5.2-beta/CoraliLab-AI-locale-v1.zip) se si desidera l'AI |
-| Intel/AMD, solo app | [CoraliLab-0.5.3-Windows-x64.zip](https://github.com/LillaByteLab/corali-lab/releases/download/v0.5.3-beta/CoraliLab-0.5.3-Windows-x64.zip); modello AI facoltativo e separato |
+| Windows 11, Snapdragon / ARM64 | [CoraliLab-0.5.4-Windows-arm64.zip](https://github.com/LillaByteLab/corali-lab/releases/download/v0.5.4-beta/CoraliLab-0.5.4-Windows-arm64.zip) più [CoraliLab-AI-locale-v1.zip](https://github.com/LillaByteLab/corali-lab/releases/download/v0.5.2-beta/CoraliLab-AI-locale-v1.zip) se si desidera l'AI |
+| Intel/AMD, solo app | [CoraliLab-0.5.4-Windows-x64.zip](https://github.com/LillaByteLab/corali-lab/releases/download/v0.5.4-beta/CoraliLab-0.5.4-Windows-x64.zip); modello AI facoltativo e separato |
 
 Estrarre lo ZIP prima di avviare `CoraliLab/CoraliLab.exe`. `Installa.cmd` crea l'installazione per il proprio utente e il collegamento sul Desktop. I dati sono separati dall'installazione; le elaborazioni e il comando Salva copia conservano gli originali.
 
 - [Inizia qui: ARM64 e Intel/AMD](docs/INIZIA-QUI.txt)
 - [Installazione e AI locale, entrambe le architetture](docs/ISTRUZIONI-SEMPLICI.txt)
 - [Prova guidata](docs/PROVA-GUIDATA.txt)
-- [Impronte SHA-256 degli archivi preparati](https://github.com/LillaByteLab/corali-lab/releases/download/v0.5.3-beta/SHA256.txt)
+- [Impronte SHA-256 degli archivi preparati](https://github.com/LillaByteLab/corali-lab/releases/download/v0.5.4-beta/SHA256.txt)
 
 Requisiti: Windows 11 a 64 bit, WebView2 e .NET Framework 4.8.1. Prevedere circa 4 GB liberi per app, modelli e primi dati. Le prove sono state eseguite con 16 GB di RAM; le prestazioni su altri PC devono essere verificate. Questa beta non dispone di firma digitale del produttore.
 
@@ -52,7 +56,7 @@ L'addestramento usa dati sintetici. Risultato del suggeritore: **56/60 casi di t
 
 ## Cosa è stato verificato
 
-- 66 test Python su ARM64 e 66 su x64 in emulazione Windows ARM.
+- 80 test Python su ARM64 e 80 su x64 in emulazione Windows ARM.
 - Pacchetti confezionati: conversione Cedro PDF → testo, PDF → Excel sintetico, trascrizione WAV → Word/TXT, AI locale, proposta di formula, video web → MP3 e ripristino dal cestino con hash invariati.
 - Interfaccia e formule: anteprima, applicazione, ricalcolo, salvataggio e annullamento.
 
@@ -65,7 +69,7 @@ L'addestramento usa dati sintetici. Risultato del suggeritore: **56/60 casi di t
 - Codice originale desktop: [AGPL-3.0-only](LICENSE). Le dipendenze mantengono le proprie licenze. Gli adattatori del modello sono Apache-2.0, come specificato nella scheda del modello.
 - [Attribuzioni e sorgenti di terze parti](corali-desktop/THIRD-PARTY-SOURCES.txt), [URL e hash degli archivi upstream](corali-desktop/upstream-sources.json).
 
-Il pacchetto [CoraliLab-0.5.3-sorgenti.zip](https://github.com/LillaByteLab/corali-lab/releases/download/v0.5.3-beta/CoraliLab-0.5.3-sorgenti.zip), disponibile tra gli allegati della release, include anche gli archivi sorgente di PyMuPDF, MuPDF e Pillow. Non sono duplicati nella cronologia Git. FFmpeg non è incluso negli archivi binari: viene scaricato dal produttore al primo utilizzo che lo richiede, con controllo SHA-256.
+Il pacchetto [CoraliLab-0.5.4-sorgenti.zip](https://github.com/LillaByteLab/corali-lab/releases/download/v0.5.4-beta/CoraliLab-0.5.4-sorgenti.zip), disponibile tra gli allegati della release, include anche gli archivi sorgente di PyMuPDF, MuPDF e Pillow. Non sono duplicati nella cronologia Git. FFmpeg non è incluso negli archivi binari: viene scaricato dal produttore al primo utilizzo che lo richiede, con controllo SHA-256.
 
 ## Segnalazioni
 

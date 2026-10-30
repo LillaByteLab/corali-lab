@@ -1,0 +1,65 @@
+{
+  "version": "0.5.4-beta",
+  "cedro": "0.26.10",
+  "unitTests": {
+    "arm64": 80,
+    "x64Emulated": 80
+  },
+  "packagedTests": [
+    {
+      "architecture": "arm64",
+      "version": "0.5.4-beta",
+      "cedro": "0.26.10",
+      "nativePdfConversion": true,
+      "syntheticPdfToExcel": true,
+      "transcriptionWordAndText": true,
+      "localAiInference": true,
+      "trainedProposal": true,
+      "publicWebToMp3": true,
+      "cleanupRestoreHashesMatch": true,
+      "x64Emulated": false,
+      "missingDllRepairedAndInference": true,
+      "csvSessionReleased": true,
+      "batchContinuesAfterMissingFile": true,
+      "cancel1500PagePdfNoOutput": true,
+      "cancelLatencySeconds": 0.089
+    },
+    {
+      "architecture": "x64",
+      "version": "0.5.4-beta",
+      "cedro": "0.26.10",
+      "nativePdfConversion": true,
+      "syntheticPdfToExcel": true,
+      "transcriptionWordAndText": true,
+      "localAiInference": true,
+      "trainedProposal": true,
+      "publicWebToMp3": true,
+      "cleanupRestoreHashesMatch": true,
+      "x64Emulated": true,
+      "missingDllRepairedAndInference": true,
+      "csvSessionReleased": true,
+      "batchContinuesAfterMissingFile": true,
+      "cancel1500PagePdfNoOutput": true,
+      "cancelLatencySeconds": 0.036
+    }
+  ],
+  "uiChecks": {
+    "csvDiscardReturnsHomeAndReleasesSession": true,
+    "missingDllRepairButton": true
+  },
+  "aiEvaluation": {
+    "syntheticCasesPerVariant": 30,
+    "variants": [
+      "baseline",
+      "candidate"
+    ],
+    "trainingChanged": false,
+    "model4BTested": false,
+    "knownPromptInjectionFailures": 6,
+    "scope": "Qwen2.5 1.5B official base, no adapter; see full answers and review"
+  },
+  "physicalIntelAmdTest": false,
+  "physicalMicrophoneTest": false,
+  "gpuAccelerationProven": false,
+  "originalUserDocumentsUsed": false
+}

@@ -5,7 +5,7 @@ from local_ai import LocalAI
 import workspace_tools as tools
 from local_operations import execute
 
-COMMANDS={'advancedStatus','preferences','renameCopy','aiSetup','aiAsk','aiStop','aiSuggestOperation','operationPreview','context','saveText','voiceText','pdfTables','tariff','batch'}
+COMMANDS={'advancedStatus','preferences','renameCopy','aiSetup','aiRepair','aiAsk','aiStop','aiSuggestOperation','operationPreview','context','saveText','voiceText','pdfTables','tariff','batch'}
 
 
 class Advanced:
@@ -60,6 +60,7 @@ class Advanced:
         a.cancel.clear()
         try:
             if cmd=='aiSetup':return self.ai.setup(lambda v:setattr(a,'progress',v),a.cancel,p.get('backend'))
+            if cmd=='aiRepair':return self.ai.repair(lambda v:setattr(a,'progress',v),a.cancel,p.get('backend'))
             if cmd=='aiSuggestOperation':
                 a.progress={'label':'L’assistente suggerisce una operazione da confermare','percent':-1}
                 return self.ai.suggest(p.get('prompt',''),p.get('data'),a.cancel)
@@ -92,10 +93,11 @@ class Advanced:
         try:
             for id in ids:
                 if a.queue_cancel.is_set():break
-                source=a.resolve(id)
+                name=Path(id).name if isinstance(id,str) else 'File non disponibile'
                 try:
+                    source=a.resolve(id);name=source.name
                     request={'cmd':'pdf','action':'compress','mode':p.get('mode','balanced'),'ids':[id]} if operation=='compress' else {'cmd':'convert','action':p.get('action'),'quality':p.get('quality',82),'options':p.get('options',{}),'ids':[id]}
                     result=a.dispatch(request);files.extend(result['files']);results.append({'name':source.name,'ok':True})
-                except Exception as error:results.append({'name':source.name,'ok':False,'error':str(error)})
+                except Exception as error:results.append({'name':name,'ok':False,'error':str(error)})
             return {'files':files,'items':results,'cancelled':a.queue_cancel.is_set(),'message':str(sum(r['ok'] for r in results))+' file completati su '+str(len(ids))+'. Ogni originale è conservato.'}
         finally:a.queue_thread=None;a.queue_lock.release()

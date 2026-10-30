@@ -3,6 +3,7 @@ from pathlib import Path
 import argparse
 import base64
 import hashlib
+import heapq
 import http.server
 import ipaddress
 import json
@@ -25,7 +26,7 @@ import csv_tools
 import pdf_tools
 import advanced
 
-VERSION='0.5.3-beta'
+VERSION='0.5.4-beta'
 ROOT=Path(getattr(sys,'_MEIPASS',Path(__file__).resolve().parent))
 ASSETS=ROOT/'assets'
 NO_WINDOW=0x08000000 if os.name=='nt' else 0
@@ -63,7 +64,7 @@ class Application:
         self.engine_info=json.loads(info.read_text(encoding='utf8')) if info.is_file() else {'version':'0.18.5','architecture':'x64'}
         self.token=secrets.token_urlsafe(32);self.origin='';self.cookie='';self.window=None
         self.sessions={};self.busy=threading.Lock();self.cancel=threading.Event();self.child=None;self.progress={'label':'Pronto','percent':0}
-        self.previews=threading.Lock();self.office_lock=threading.Lock()
+        self.previews=threading.Lock();self.office_lock=threading.RLock()
         self.workspace_lock=threading.RLock()
         from workspace_cleanup import WorkspaceCleanup
         self.cleanup=WorkspaceCleanup(self)
@@ -95,9 +96,25 @@ class Application:
         return {'id':id,'name':path.name,'bytes':path.stat().st_size,'date':int(path.stat().st_mtime*1000),'output':id.startswith('outputs/')}
 
     def scan(self):
-        pending=[p.parent for p in (self.root/'outputs').glob('*/.corali-pending')]
-        files=[p for name in ('inputs','outputs') for p in (self.root/name).rglob('*') if p.is_file() and not any(p.is_relative_to(folder) for folder in pending)]
-        return [self.meta(p) for p in sorted(files,key=lambda p:p.stat().st_mtime,reverse=True)[:5000] if not p.name.startswith('.')]
+        def entries(folder):
+            if folder.is_symlink() or folder.is_junction() or (folder/'.corali-pending').exists():return
+            try:
+                with os.scandir(folder) as listing:
+                    for entry in listing:
+                        if entry.name.startswith('.') or entry.is_symlink():continue
+                        path=Path(entry.path)
+                        try:
+                            if path.is_junction():continue
+                            if entry.is_dir(follow_symlinks=False):yield from entries(path)
+                            elif entry.is_file(follow_symlinks=False):
+                                stat=entry.stat(follow_symlinks=False);id=path.relative_to(self.root).as_posix()
+                                yield {'id':id,'name':entry.name,'bytes':stat.st_size,'date':int(stat.st_mtime*1000),'output':id.startswith('outputs/'),'_mtime':stat.st_mtime_ns}
+                        except OSError:continue  # A file may disappear while scanning.
+            except OSError:return
+        candidates=(item for name in ('inputs','outputs') for item in entries(self.root/name))
+        result=heapq.nlargest(5000,candidates,key=lambda x:(x['_mtime'],x['id']))
+        for item in result:item.pop('_mtime')
+        return result
 
     def import_bytes(self,name,data):
         if len(data)>250*1024*1024:raise ValueError('Importa file fino a 250 MB.')
@@ -267,7 +284,7 @@ class Application:
         if not OFFICE.search(path.name):raise ValueError('Formato Office non supportato.')
         if path.stat().st_size>50*1024*1024:raise ValueError('Questa versione apre documenti Office fino a 50 MB.')
         ext=path.suffix.lower();allowed=ext in ('.docx','.xlsx','.pptx','.odt','.ods','.odp');reason=''
-        head=path.read_bytes()[:8]
+        with path.open('rb') as stream:head=stream.read(8)
         encrypted=head.startswith(bytes.fromhex('d0cf')) and ext in ('.docx','.xlsx','.pptx')
         if encrypted:allowed=False;reason='Documento protetto: apertura in sola lettura.'
         elif ext not in ('.doc','.xls','.ppt'):
@@ -299,6 +316,21 @@ class Application:
         return self.sessions[sid]
 
     def office(self,p,sid):
+        with self.office_lock:
+            if p.get('cmd')=='close':return self.close_session(sid,p.get('discard') is True)
+            return self._office(p,sid)
+
+    def close_session(self,sid,discard=False):
+        with self.office_lock, self.workspace_lock:
+            session=self.sessions.get(sid)
+            if session is None:return {'closed':True}
+            if not discard and (session.get('pending') or (session.get('csv') and session['csv'].dirty)):
+                raise ValueError('Ci sono modifiche non salvate: salva una copia o conferma di scartarle.')
+            if session.get('pending'):session['pending'].unlink(missing_ok=True)
+            del self.sessions[sid]
+            return {'closed':True}
+
+    def _office(self,p,sid):
         session=self.session(sid);source=session['path'];cmd=p.get('cmd')
         with self.office_lock:
             if cmd=='info':return {**session['inspection'],'name':source.name,'size':source.stat().st_size,'url':'/office-source?sid='+sid}
@@ -330,6 +362,11 @@ class Application:
             raise ValueError('Operazione Office non disponibile.')
 
     def csv(self,p,sid):
+        with self.office_lock:
+            if p.get('cmd')=='close':return self.close_session(sid,p.get('discard') is True)
+            return self._csv(p,sid)
+
+    def _csv(self,p,sid):
         session=self.session(sid);editor=session['csv'];cmd=p.get('cmd')
         if cmd=='view':return editor.view(p.get('start',0))
         if cmd=='apply':editor.apply(p.get('changes',[]));return editor.view(p.get('start',0))
@@ -402,7 +439,7 @@ class Application:
             if cmd!='web' and not sources:raise ValueError('Scegli almeno un file.')
             result={}
             if cmd=='pdf':
-                outputs=pdf_tools.run(p.get('action'),sources,p,folder,ASSETS/'TitilliumWeb-Regular.ttf',self.resolve)
+                outputs=pdf_tools.run(p.get('action'),sources,p,folder,ASSETS/'TitilliumWeb-Regular.ttf',self.resolve,self.cancel)
                 if p.get('action')=='compress':result.update(before=sources[0].stat().st_size,after=outputs[0].stat().st_size,message='Confronta il peso e controlla la leggibilità della nuova copia.')
             elif cmd=='transcribe':outputs=self.transcript(sources,p,folder)
             elif cmd=='web':outputs=self.web_download(p,folder)
@@ -420,10 +457,12 @@ class Application:
             if not outputs:raise ValueError('Nessun risultato prodotto.')
             for source,hash in hashes.items():
                 if csv_tools.digest(source)!=hash:raise ValueError('La verifica della sorgente non è riuscita.')
+            if self.cancel.is_set():raise ValueError('Operazione annullata. Nessun risultato incompleto pubblicato.')
             (folder/'.corali-pending').unlink(missing_ok=True)
             self.progress={'label':'Elaborazione completata','percent':100};result['files']=[self.meta(f) for f in outputs]
             return result
         except Exception:
+            if self.cancel.is_set():self.progress={'label':'Operazione annullata','percent':0}
             shutil.rmtree(folder,ignore_errors=True);raise
         finally:self.busy.release()
 

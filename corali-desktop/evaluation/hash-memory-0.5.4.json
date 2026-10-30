@@ -1,0 +1,14 @@
+{
+  "scope": "Single local run; SHA-256 peak Python allocations, not total process memory",
+  "bytes": 5995126,
+  "read_all": {
+    "sha256": "ec17dc0b81bb8bb8f3224bfe364fbc0879f15818f938119bc06121b15c206c9d",
+    "peakBytes": 6003752,
+    "seconds": 0.067
+  },
+  "stream": {
+    "sha256": "ec17dc0b81bb8bb8f3224bfe364fbc0879f15818f938119bc06121b15c206c9d",
+    "peakBytes": 272201,
+    "seconds": 0.0606
+  }
+}

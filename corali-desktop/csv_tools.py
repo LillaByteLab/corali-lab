@@ -6,7 +6,9 @@ import io
 from pathlib import Path
 
 
-def digest(path):return hashlib.sha256(Path(path).read_bytes()).hexdigest()
+def digest(path):
+    with Path(path).open('rb') as stream:
+        return hashlib.file_digest(stream, 'sha256').hexdigest()
 
 
 class CsvSession:

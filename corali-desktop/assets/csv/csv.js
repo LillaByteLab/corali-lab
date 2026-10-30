@@ -17,7 +17,8 @@ $('undo').onclick=()=>run(async()=>{changes.clear();render(await rpc({cmd:'view'
 $('delimiter').onchange=()=>run(async()=>{if(dirty||changes.size){$('delimiter').value=view.delimiter;throw Error('Salva prima la copia aperta.');}render(await rpc({cmd:'separator',delimiter:$('delimiter').value}));});$('encoding').onchange=()=>$('encoding').dataset.chosen='true';
 async function exportCopy(){const result=await rpc({cmd:'export'});message(result.saved?'Copia salvata in: '+(result.path||'cartella scelta'):'Scelta cartella annullata. La copia resta nei Risultati.');return result.saved;}
 $('export').onclick=()=>run(exportCopy);$('reveal').onclick=()=>run(()=>rpc({cmd:'share'}));
-$('back').onclick=()=>{if(dirty||changes.size)$('unsaved').showModal();else location.href='/';};$('continue').onclick=()=>$('unsaved').close();$('discard').onclick=()=>{dirty=false;changes.clear();location.href='/';};$('saveClose').onclick=()=>run(async()=>{if(await save()===false)return;$('unsaved').close();location.href='/';});
+async function closeEditor(discard=false){await rpc({cmd:'close',discard});dirty=false;changes.clear();view=null;$('table').replaceChildren();location.href='/';}
+$('back').onclick=()=>{if(working)return;if(dirty||changes.size)$('unsaved').showModal();else run(()=>closeEditor());};$('continue').onclick=()=>$('unsaved').close();$('discard').onclick=()=>run(()=>closeEditor(true));$('saveClose').onclick=()=>run(async()=>{if(await save()===false)return;await closeEditor();});
 addEventListener('beforeunload',e=>{if(dirty||changes.size){e.preventDefault();e.returnValue='';}});
 run(async()=>render(await rpc({cmd:'view'})));
 

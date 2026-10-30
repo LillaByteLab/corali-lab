@@ -1,0 +1,3 @@
+21d26254f3174c93c30c65ef5d7dee3c0f11825421a21af2860428789b893f0d  CoraliLab-0.5.4-Windows-arm64.zip
+4fd5295f2adafaf8617b5d60a8df263155c899cfb613aa7b909c234809cf718f  CoraliLab-0.5.4-Windows-x64.zip
+8e007da7beb604c5fa4ff20c14d4978cca90665759d2091ed481fda9b9cc6f5b  CoraliLab-0.5.4-sorgenti.zip

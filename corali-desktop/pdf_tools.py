@@ -71,12 +71,19 @@ def replace_text(page, old, new, font_file):
     return len(placements)
 
 
-def compress_images(doc, mode):
+def check_cancel(cancelled):
+    if cancelled is not None and cancelled.is_set():
+        raise InterruptedError('Operazione annullata. Nessun risultato incompleto pubblicato.')
+
+
+def compress_images(doc, mode, cancelled=None):
     if mode=='lossless':return
     limit,quality=(1200,48) if mode=='strong' else (2000,76)
     visited=set()
     for page in doc:
+        check_cancel(cancelled)
         for item in page.get_images(full=True):
+            check_cancel(cancelled)
             xref,smask=item[:2]
             if xref in visited or smask:continue
             visited.add(xref)
@@ -90,14 +97,22 @@ def compress_images(doc, mode):
             except (ValueError,OSError):continue
 
 
-def run(action,sources,params,dest,font_file,resolve):
+def run(action,sources,params,dest,font_file,resolve,cancelled=None):
+    check_cancel(cancelled)
     dest=Path(dest);dest.mkdir(parents=True,exist_ok=True);output=dest/('documento-'+action+'.pdf')
     if action=='merge':
         if len(sources)<2:raise ValueError('Scegli almeno due PDF nell’ordine desiderato.')
         with pdf.open() as result:
             for source in sources:
-                with load(source,params) as doc:result.insert_pdf(doc,widgets=True)
+                check_cancel(cancelled)
+                with load(source,params) as doc:
+                    # Keep whole-document insertion to preserve cross-page links.
+                    # This native call completes before cancellation is observed.
+                    result.insert_pdf(doc,widgets=True)
+                check_cancel(cancelled)
+            check_cancel(cancelled)
             result.save(output,garbage=4,deflate=True)
+            check_cancel(cancelled)
         return [output]
     with load(sources[0],params,modify=True,owner=action=='unlock') as doc:
         selected=pages(params.get('pages',''),len(doc))
@@ -107,33 +122,47 @@ def run(action,sources,params,dest,font_file,resolve):
             outputs=[]
             groups=[[n] for n in selected] if action=='split' else [selected]
             for number,group in enumerate(groups):
+                check_cancel(cancelled)
                 path=dest/(f'pagina-{group[0]+1}-{number+1}.pdf' if action=='split' else output.name)
                 with pdf.open() as result:
-                    for n in group:result.insert_pdf(doc,from_page=n,to_page=n,widgets=True)
+                    for n in group:
+                        check_cancel(cancelled)
+                        result.insert_pdf(doc,from_page=n,to_page=n,widgets=True)
+                    check_cancel(cancelled)
                     result.save(path,garbage=4,deflate=True)
+                    check_cancel(cancelled)
                 outputs.append(path)
             return outputs
         if action=='rotate':
             degrees=int(params.get('degrees',90))
             if degrees%90:raise ValueError('La rotazione deve essere un multiplo di 90°.')
-            for n in selected:doc[n].set_rotation((doc[n].rotation+degrees)%360)
-        elif action=='compress':compress_images(doc,params.get('mode','balanced'))
+            for n in selected:
+                check_cancel(cancelled)
+                doc[n].set_rotation((doc[n].rotation+degrees)%360)
+        elif action=='compress':compress_images(doc,params.get('mode','balanced'),cancelled)
         elif action=='replace':
             old=params.get('find','')
             if not old:raise ValueError('Scrivi il testo da cercare.')
-            changes=sum(replace_text(doc[n],old,params.get('replacement',''),font_file) for n in selected)
+            changes=0
+            for n in selected:
+                check_cancel(cancelled)
+                changes+=replace_text(doc[n],old,params.get('replacement',''),font_file)
             if not changes:raise ValueError('Il testo non è stato trovato. Le scansioni richiedono prima il riconoscimento OCR.')
         elif action=='numbers':
-            for n,page in enumerate(doc):page.insert_text(point(page,.48,.96),str(n+1),fontsize=10,color=color('#174b58'))
+            for n,page in enumerate(doc):
+                check_cancel(cancelled)
+                page.insert_text(point(page,.48,.96),str(n+1),fontsize=10,color=color('#174b58'))
         elif action=='watermark':
             text=params.get('text','').strip()
             if not text:raise ValueError('Scrivi il testo della filigrana.')
             for page in doc:
+                check_cancel(cancelled)
                 page.insert_font(fontname='Corali',fontfile=str(font_file))
                 page.insert_text(point(page,.12,.5),text,fontname='Corali',fontsize=30,color=color('#174b58'),fill_opacity=.22)
         elif action=='form':
             values=params.get('fields',{});found=0
             for page in doc:
+                check_cancel(cancelled)
                 for widget in page.widgets() or []:
                     if widget.field_name in values:
                         if widget.field_type==pdf.PDF_WIDGET_TYPE_SIGNATURE:continue
@@ -141,6 +170,7 @@ def run(action,sources,params,dest,font_file,resolve):
             if not found:raise ValueError('Nessun campo compilabile trovato.')
         elif action=='annotate':
             for edit in params.get('edits',[]):
+                check_cancel(cancelled)
                 index=int(edit.get('page',0))
                 if index<0 or index>=len(doc):raise ValueError('Pagina dell’annotazione non valida.')
                 page=doc[index];kind=edit.get('type');ink=color(edit.get('color'))
@@ -169,5 +199,7 @@ def run(action,sources,params,dest,font_file,resolve):
             if not 4<=len(password)<=40:raise ValueError('Scegli una password da 4 a 40 caratteri.')
             options.update(encryption=pdf.PDF_ENCRYPT_AES_256,owner_pw=password,user_pw=password,permissions=pdf.PDF_PERM_ACCESSIBILITY|pdf.PDF_PERM_PRINT|pdf.PDF_PERM_COPY|pdf.PDF_PERM_MODIFY|pdf.PDF_PERM_ANNOTATE|pdf.PDF_PERM_FORM)
         elif action=='unlock':options['encryption']=pdf.PDF_ENCRYPT_NONE
+        check_cancel(cancelled)
         doc.save(output,**options)
+        check_cancel(cancelled)
     return [output]
