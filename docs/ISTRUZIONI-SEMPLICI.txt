@@ -50,9 +50,19 @@ Il primo avvio AI puo richiedere attesa. Chiudi i programmi pesanti se necessari
 Scarica il modello dalla RAM libera memoria senza cancellare i file.
 
 PER SEGNALARE UN PROBLEMA
-Indica versione 0.5.2 beta, tipo PC, operazione, messaggio e cosa ti aspettavi.
+Indica versione 0.5.5 beta, tipo PC, operazione, messaggio e cosa ti aspettavi.
 Usa gli esempi fittizi per riprodurlo. Non allegare nomi di alunni o documenti
 riservati. Per i PDF reali controlla anche le colonne Controllo e Origine.
 
 VIDEO WEB: al primo utilizzo viene scaricato FFmpeg dal produttore (92 MB).
 Il download e verificato con SHA-256; la copia viene riutilizzata localmente.
+
+NUOVE PREFERENZE AI 0.5.5
+Nella sezione Assistente AI scegli Leggero o Esteso e premi Salva preferenze AI.
+Prepara i componenti AI scarica solo il modello selezionato e il motore necessario.
+Il modello esteso Qwen3 4B occupa circa 2,5 GB ed esige almeno 3 GB di RAM libera
+all'avvio. Non viene applicato l'adattatore del precedente suggeritore.
+Abilita assistente e Carica all'avvio sono scelte distinte; puoi impostare
+il rilascio automatico della RAM dopo 1, 5, 15 o 30 minuti e provare la velocita.
+Queste scelte non disabilitano editor, conversioni o calcoli manuali.
+Le risposte possono ancora contenere errori e contraddizioni: verifica le fonti.

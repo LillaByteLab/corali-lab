@@ -6,7 +6,15 @@ Coralì Lab incorpora [Cedro](https://github.com/realfulvio/cedro) **0.26.10**, 
 
 Un laboratorio locale per PDF, documenti, fogli di calcolo, trascrizioni e assistenza AI, con un'interfaccia in italiano. È uno strumento di supporto: la compatibilità non equivale a quella di una suite Office completa.
 
-**Versione 0.5.4 beta — prova controllata.** I sorgenti sono disponibili in questo repository. I pacchetti per Windows ARM64 e Intel/AMD e i sorgenti completi sono disponibili nella [release 0.5.4 beta](https://github.com/LillaByteLab/corali-lab/releases/tag/v0.5.4-beta). Gli archivi caricati sono stati verificati con SHA-256.
+**Versione 0.5.5 beta — prova controllata.** I sorgenti sono disponibili in questo repository. I pacchetti per Windows ARM64 e Intel/AMD e i sorgenti completi sono disponibili nella [release 0.5.5 beta](https://github.com/LillaByteLab/corali-lab/releases/tag/v0.5.5-beta). Gli archivi caricati sono stati verificati con SHA-256.
+
+## Aggiornamento 0.5.5
+
+Trasferimenti a blocchi, indice incrementale in memoria, cache dei cataloghi basata anche sul contenuto, trascrizioni in coda, salvataggi completi e recupero prudente dei file interrotti. Pulizia automatica facoltativa nel cestino. Assistente locale disattivabile, caricamento iniziale facoltativo, rilascio dopo inattività e prova di velocità.
+
+**Qwen3 4B è un download facoltativo di circa 2,5 GB**, verificato tramite hash e revisione fissata: almeno 3 GB di RAM libera per avviarlo. Il profilo leggero resta predefinito. Il suggeritore con LoRA resta separato. L'AI può sbagliare: proposte da verificare, mai applicate automaticamente. Nessun nuovo addestramento dei pesi.
+
+98 test ARM64 e 98 x64 in emulazione; risultati dei pacchetti in `docs/COLLAUDO-PACCHETTI-0.5.5.json`. Risposte AI integrali e limiti in `corali-desktop/evaluation/REVIEW-0.5.5.md`. Il collaudo non certifica tutte le impaginazioni Office, il microfono fisico, Intel/AMD fisico o accelerazione GPU.
 
 ## Aggiornamento 0.5.4
 
@@ -24,15 +32,15 @@ Il modello e l’adattatore non sono stati riaddestrati in questo aggiornamento.
 
 | PC | Pacchetto da scaricare |
 | --- | --- |
-| Windows 11, Snapdragon / ARM64 | [CoraliLab-0.5.4-Windows-arm64.zip](https://github.com/LillaByteLab/corali-lab/releases/download/v0.5.4-beta/CoraliLab-0.5.4-Windows-arm64.zip) più [CoraliLab-AI-locale-v1.zip](https://github.com/LillaByteLab/corali-lab/releases/download/v0.5.2-beta/CoraliLab-AI-locale-v1.zip) se si desidera l'AI |
-| Intel/AMD, solo app | [CoraliLab-0.5.4-Windows-x64.zip](https://github.com/LillaByteLab/corali-lab/releases/download/v0.5.4-beta/CoraliLab-0.5.4-Windows-x64.zip); modello AI facoltativo e separato |
+| Windows 11, Snapdragon / ARM64 | [CoraliLab-0.5.5-Windows-arm64.zip](https://github.com/LillaByteLab/corali-lab/releases/download/v0.5.5-beta/CoraliLab-0.5.5-Windows-arm64.zip) più [CoraliLab-AI-locale-v1.zip](https://github.com/LillaByteLab/corali-lab/releases/download/v0.5.2-beta/CoraliLab-AI-locale-v1.zip) solo per il suggeritore di operazioni; l'assistente generale si prepara dall'app |
+| Intel/AMD, solo app | [CoraliLab-0.5.5-Windows-x64.zip](https://github.com/LillaByteLab/corali-lab/releases/download/v0.5.5-beta/CoraliLab-0.5.5-Windows-x64.zip); modello AI facoltativo e separato |
 
 Estrarre lo ZIP prima di avviare `CoraliLab/CoraliLab.exe`. `Installa.cmd` crea l'installazione per il proprio utente e il collegamento sul Desktop. I dati sono separati dall'installazione; le elaborazioni e il comando Salva copia conservano gli originali.
 
 - [Inizia qui: ARM64 e Intel/AMD](docs/INIZIA-QUI.txt)
 - [Installazione e AI locale, entrambe le architetture](docs/ISTRUZIONI-SEMPLICI.txt)
 - [Prova guidata](docs/PROVA-GUIDATA.txt)
-- [Impronte SHA-256 degli archivi preparati](https://github.com/LillaByteLab/corali-lab/releases/download/v0.5.4-beta/SHA256.txt)
+- [Impronte SHA-256 degli archivi preparati](https://github.com/LillaByteLab/corali-lab/releases/download/v0.5.5-beta/SHA256.txt)
 
 Requisiti: Windows 11 a 64 bit, WebView2 e .NET Framework 4.8.1. Prevedere circa 4 GB liberi per app, modelli e primi dati. Le prove sono state eseguite con 16 GB di RAM; le prestazioni su altri PC devono essere verificate. Questa beta non dispone di firma digitale del produttore.
 
@@ -56,7 +64,7 @@ L'addestramento usa dati sintetici. Risultato del suggeritore: **56/60 casi di t
 
 ## Cosa è stato verificato
 
-- 80 test Python su ARM64 e 80 su x64 in emulazione Windows ARM.
+- 98 test Python su ARM64 e 98 su x64 in emulazione Windows ARM.
 - Pacchetti confezionati: conversione Cedro PDF → testo, PDF → Excel sintetico, trascrizione WAV → Word/TXT, AI locale, proposta di formula, video web → MP3 e ripristino dal cestino con hash invariati.
 - Interfaccia e formule: anteprima, applicazione, ricalcolo, salvataggio e annullamento.
 
@@ -69,7 +77,7 @@ L'addestramento usa dati sintetici. Risultato del suggeritore: **56/60 casi di t
 - Codice originale desktop: [AGPL-3.0-only](LICENSE). Le dipendenze mantengono le proprie licenze. Gli adattatori del modello sono Apache-2.0, come specificato nella scheda del modello.
 - [Attribuzioni e sorgenti di terze parti](corali-desktop/THIRD-PARTY-SOURCES.txt), [URL e hash degli archivi upstream](corali-desktop/upstream-sources.json).
 
-Il pacchetto [CoraliLab-0.5.4-sorgenti.zip](https://github.com/LillaByteLab/corali-lab/releases/download/v0.5.4-beta/CoraliLab-0.5.4-sorgenti.zip), disponibile tra gli allegati della release, include anche gli archivi sorgente di PyMuPDF, MuPDF e Pillow. Non sono duplicati nella cronologia Git. FFmpeg non è incluso negli archivi binari: viene scaricato dal produttore al primo utilizzo che lo richiede, con controllo SHA-256.
+Il pacchetto [CoraliLab-0.5.5-sorgenti.zip](https://github.com/LillaByteLab/corali-lab/releases/download/v0.5.5-beta/CoraliLab-0.5.5-sorgenti.zip), disponibile tra gli allegati della release, include anche gli archivi sorgente di PyMuPDF, MuPDF e Pillow. Non sono duplicati nella cronologia Git. FFmpeg non è incluso negli archivi binari: viene scaricato dal produttore al primo utilizzo che lo richiede, con controllo SHA-256.
 
 ## Segnalazioni
 

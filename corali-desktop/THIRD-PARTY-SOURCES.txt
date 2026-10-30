@@ -65,5 +65,13 @@ Vedere MODEL-CARD.txt nel pacchetto AI e i dati/script nel pacchetto sorgenti.
 
 STATO: sorgenti Corali e archivi sorgente PyMuPDF/Pillow preparati insieme
 alla beta. FFmpeg e stato escluso dai binari distribuiti. Gli altri componenti
-conservano licenze e riferimenti sorgente. Sorgenti e pacchetti corrispondenti alla versione 0.5.4:
-https://github.com/LillaByteLab/corali-lab/releases/tag/v0.5.4-beta
+conservano licenze e riferimenti sorgente. Sorgenti e pacchetti corrispondenti alla versione 0.5.5:
+https://github.com/LillaByteLab/corali-lab/releases/tag/v0.5.5-beta
+
+MODELLO ESTESO FACOLTATIVO (non incluso nello ZIP)
+Qwen3-4B-Instruct-2507: Apache-2.0; licenza in licenses/Qwen3-Apache-2.0.txt.
+Sorgente: https://huggingface.co/Qwen/Qwen3-4B-Instruct-2507
+Quantizzazione: https://huggingface.co/unsloth/Qwen3-4B-Instruct-2507-GGUF
+Revisione a06e946bb6b655725eafa393f4a9745d460374c9, file Qwen3-4B-Instruct-2507-Q4_K_M.gguf.
+SHA-256 3605803b982cb64aead44f6c1b2ae36e3acdb41d8e46c8a94c6533bc4c67e597.
+Nessun adattatore LoRA applicato a questo modello. Non sono stati modificati i suoi pesi.

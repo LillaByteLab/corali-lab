@@ -1,8 +1,16 @@
-# Coralì Lab 0.5.4 beta
+# Coralì Lab 0.5.5 beta
 
 ## Componenti open source
 
 Coralì Lab incorpora [Cedro](https://github.com/realfulvio/cedro) **0.26.10**, componente open source con licenza MIT per conversioni, OCR e trascrizioni. [Release originale](https://github.com/realfulvio/cedro/releases/tag/v0.26.10). Coralì Lab è un progetto indipendente; copyright, licenze e sorgenti dei componenti sono conservati e distribuiti con il programma.
+
+## Aggiornamento 0.5.5
+
+Trasferimenti a blocchi, indice incrementale in memoria, cache dei cataloghi basata anche sul contenuto, trascrizioni in coda, salvataggi completi e recupero prudente dei file interrotti. Pulizia automatica facoltativa nel cestino. Assistente locale disattivabile, caricamento iniziale facoltativo, rilascio dopo inattività e prova di velocità.
+
+**Qwen3 4B è un download facoltativo di circa 2,5 GB**, verificato tramite hash e revisione fissata: almeno 3 GB di RAM libera per avviarlo. Il profilo leggero resta predefinito. Il suggeritore con LoRA resta separato. L'AI può sbagliare: proposte da verificare, mai applicate automaticamente. Nessun nuovo addestramento dei pesi.
+
+98 test ARM64 e 98 x64 in emulazione; risultati dei pacchetti in `docs/COLLAUDO-PACCHETTI-0.5.5.json`. Risposte AI integrali e limiti in `corali-desktop/evaluation/REVIEW-0.5.5.md`. Il collaudo non certifica tutte le impaginazioni Office, il microfono fisico, Intel/AMD fisico o accelerazione GPU.
 
 ## Aggiornamento 0.5.4
 

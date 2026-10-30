@@ -1,4 +1,4 @@
-RICOSTRUIRE CORALI LAB 0.5.4 BETA
+RICOSTRUIRE CORALI LAB 0.5.5 BETA
 
 Windows 11, Python 3.13 della stessa architettura del risultato (ARM64 o x64),
 compilatore C# Roslyn e SDK WebView2 con DLL Core/WinForms e loader della stessa
@@ -14,7 +14,7 @@ architettura. Non usare AnyCPU per il launcher ARM: selezionerebbe un CLR emulat
 5. Esegui python -m unittest discover -s . -p "test_*.py".
 6. Esegui build-native.ps1 passando Architecture, Python, Compiler e WebViewLib.
    Le specifiche CoraliLab-arm64.spec e CoraliLab-x64.spec selezionano il motore.
-7. Aggiungi LICENSE, licenses, RELEASE-0.5.4.txt, INSTALLAZIONE.txt e gli esempi
+7. Aggiungi LICENSE, licenses, RELEASE-0.5.5.txt, INSTALLAZIONE.txt e gli esempi
    sintetici; verifica il programma confezionato, non soltanto il codice Python.
 
 L'AI viene distribuita separatamente. Il modello base e l'adattatore sono

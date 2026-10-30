@@ -1,0 +1,22 @@
+[
+  {
+    "arch": "arm64",
+    "x64Emulated": false,
+    "model4BIntegrityAndInference": true,
+    "preloadOnRestart": true,
+    "idleReleasedSeconds": 60.9,
+    "disabledManualCalculationsWork": true,
+    "translationSecondsIncludingPossibleLoad": 8.07,
+    "response": "Buongiorno."
+  },
+  {
+    "arch": "x64",
+    "x64Emulated": true,
+    "model4BIntegrityAndInference": true,
+    "preloadOnRestart": true,
+    "idleReleasedSeconds": 60.9,
+    "disabledManualCalculationsWork": true,
+    "translationSecondsIncludingPossibleLoad": 24.341,
+    "response": "Buongiorno."
+  }
+]

@@ -1,24 +1,28 @@
-CORALI LAB 0.5.4 BETA - INIZIA QUI
+CORALI LAB 0.5.5 BETA - INIZIA QUI
 
-1. Surface Snapdragon: scarica Windows-arm64.zip. PC Intel/AMD: Windows-x64.zip.
-2. Tasto destro sullo ZIP > Estrai tutto. Non avviare il programma dentro lo ZIP.
-3. Nella cartella CoraliLab apri Installa.cmd, oppure CoraliLab.exe per uso portatile.
-   L'installazione conserva la versione precedente e aggiorna l'icona del Desktop.
-4. Il modello AI della 0.5.2 e ancora compatibile. Se hai gia ai-pack, copiala accanto
-   al nuovo CoraliLab.exe. Altrimenti scarica CoraliLab-AI-locale-v1.zip da:
-   https://github.com/LillaByteLab/corali-lab/releases/tag/v0.5.2-beta
-5. Assistente e strumenti > Processore > Prepara i componenti AI.
-   Internet serve ai download iniziali; prompt e documenti sono elaborati sul PC.
-   La prova Vulkan e facoltativa. Se non riesce, l'app torna alla CPU e lo segnala.
-6. Prima prova i file sintetici. Controlla i risultati prima di usare documenti reali.
+1. Surface con Snapdragon: scarica Windows-arm64. PC Intel/AMD: Windows-x64.
+2. Estrai tutto lo ZIP in una cartella. Apri CoraliLab, poi Installa.cmd.
+3. Usa l'icona Corali Lab sul Desktop. Le versioni precedenti e i documenti sono conservati.
 
-PULIZIA: Assistente e strumenti > Preferenze > Mostra anteprima.
-Puoi spostare copie nel cestino e ripristinarle. I risultati sono esclusi per default.
-Il cestino occupa ancora spazio: per liberarlo, Svuota definitivamente richiede
-di scrivere ELIMINA. Nessuna pulizia automatica, nessuna modifica agli originali.
+L'app e una beta non firmata. Per un PC di lavoro segui le indicazioni del responsabile informatico.
+PDF, editor e calcoli manuali funzionano senza l'assistente AI.
 
-Restano da collaudare Intel/AMD fisico, microfono reale e GPU realmente accelerata.
-Non inviare documenti riservati nelle Issues pubbliche di GitHub.
+AI LOCALE FACOLTATIVA
+Apri Assistente e strumenti > Assistente AI.
+Scegli il modello Leggero (circa 1 GB) o Esteso Qwen3 4B (circa 2,5 GB), quindi Salva preferenze AI.
+Premi Prepara i componenti AI. Internet serve per questo download; i documenti vengono elaborati sul PC.
+Il profilo esteso richiede almeno 3 GB di RAM libera all'avvio; chiudi le app pesanti se richiesto.
+Puoi provare la velocita, disattivare l'assistente, scegliere il caricamento all'avvio e il rilascio dopo inattivita.
+Il modello esteso non usa l'adattatore del suggeritore. Il precedente pacchetto AI locale v1 resta valido per il suggeritore di operazioni.
+Controlla risposte, numeri, requisiti e fonti. Non vengono applicate automaticamente formule o istruzioni.
+Se manca una DLL: Ripara il motore AI. Se una risposta e errata, correggila: il modello puo sbagliare.
 
-Se il motore AI segnala file mancanti o danneggiati: Assistente e strumenti > Ripara il motore AI.
-Richiede internet e conserva il modello e i documenti. Le risposte AI vanno sempre controllate.
+COPIE E RECUPERO
+Preferenze: la pulizia automatica e disattivata inizialmente. Se la abiliti, all'avvio sposta solo vecchie copie importate nel cestino di Corali.
+Gli originali esterni e i risultati rimangono conservati. Il cestino e ripristinabile e si svuota solo con conferma.
+Nella stessa pagina, Recupero dopo un'interruzione permette di salvare copie parziali recuperate. Un file incompleto puo essere inutilizzabile.
+
+COME SEGNALARE UN PROBLEMA
+Indica versione, ARM64 o x64, operazione, messaggio e tipo/dimensione del file.
+Usa un esempio anonimo. Non allegare nomi, documenti scolastici o dati riservati nelle issue pubbliche.
+https://github.com/LillaByteLab/corali-lab/issues

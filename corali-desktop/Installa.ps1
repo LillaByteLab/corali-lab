@@ -4,7 +4,7 @@ $arch=Get-Content -LiteralPath (Join-Path $sourceDir 'ARCHITECTURE.txt') -Raw
 $arch=$arch.Trim()
 if($arch -notin @('arm64','x64')){throw 'Pacchetto con architettura non valida.'}
 $baseDir=Join-Path $env:LOCALAPPDATA 'Programs/CoraliLab'
-$targetDir=Join-Path $baseDir ('0.5.4-beta-'+$arch)
+$targetDir=Join-Path $baseDir ('0.5.5-beta-'+$arch)
 if([IO.Path]::GetFullPath($sourceDir) -eq [IO.Path]::GetFullPath($targetDir)){Write-Output 'Questa copia e gia installata.'}
 elseif(Test-Path -LiteralPath $targetDir){throw 'Questa versione esiste gia. Avvia la copia installata; nessun file e stato sovrascritto.'}
 else{

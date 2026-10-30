@@ -117,11 +117,14 @@
     "name": "Corali operazioni v1 sperimentale",
     "base": {
       "file": "source-q4_k_m.gguf",
-      "sha256": "ac4ff82fb4b8225c38db1a7d4da285625584d99900e662074550517206188767"
+      "sha256": "ac4ff82fb4b8225c38db1a7d4da285625584d99900e662074550517206188767",
+      "bytes": 986048160,
+      "name": "Qwen2.5 1.5B - base del pacchetto operazioni"
     },
     "adapter": {
       "file": "operations-v1.gguf",
-      "sha256": "0c5403e3500a2f9e848305f1938f5a50b5e9cc76435f02f23f6a51d21100bce1"
+      "sha256": "0c5403e3500a2f9e848305f1938f5a50b5e9cc76435f02f23f6a51d21100bce1",
+      "bytes": 1248096
     },
     "validationCorrect": 31,
     "validationCases": 36,
@@ -234,6 +237,19 @@
         "ggml-cpu-alderlake.dll": "3b52069ee8b850d230d0773616bb8f142767f9233e4443f433a43e290dd53480",
         "ggml-base.dll": "8be6872295c282ef3e71d51881c839a04aa602a9de80578c366ebb8bbc284a1b"
       }
+    }
+  },
+  "models": {
+    "capable": {
+      "name": "Qwen3 4B Instruct 2507 Q4_K_M",
+      "file": "Qwen3-4B-Instruct-2507-Q4_K_M.gguf",
+      "bytes": 2497281120,
+      "sha256": "3605803b982cb64aead44f6c1b2ae36e3acdb41d8e46c8a94c6533bc4c67e597",
+      "url": "https://huggingface.co/unsloth/Qwen3-4B-Instruct-2507-GGUF/resolve/a06e946bb6b655725eafa393f4a9745d460374c9/Qwen3-4B-Instruct-2507-Q4_K_M.gguf",
+      "revision": "a06e946bb6b655725eafa393f4a9745d460374c9",
+      "source": "https://huggingface.co/Qwen/Qwen3-4B-Instruct-2507",
+      "quantizationSource": "https://huggingface.co/unsloth/Qwen3-4B-Instruct-2507-GGUF",
+      "license": "Apache-2.0"
     }
   }
 }
