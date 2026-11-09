@@ -50,12 +50,9 @@ Il primo avvio AI puo richiedere attesa. Chiudi i programmi pesanti se necessari
 Scarica il modello dalla RAM libera memoria senza cancellare i file.
 
 PER SEGNALARE UN PROBLEMA
-Indica versione 0.5.5 beta, tipo PC, operazione, messaggio e cosa ti aspettavi.
+Indica la versione del programma, tipo PC, operazione, messaggio e cosa ti aspettavi.
 Usa gli esempi fittizi per riprodurlo. Non allegare nomi di alunni o documenti
 riservati. Per i PDF reali controlla anche le colonne Controllo e Origine.
-
-VIDEO WEB: al primo utilizzo viene scaricato FFmpeg dal produttore (92 MB).
-Il download e verificato con SHA-256; la copia viene riutilizzata localmente.
 
 NUOVE PREFERENZE AI 0.5.5
 Nella sezione Assistente AI scegli Leggero o Esteso e premi Salva preferenze AI.

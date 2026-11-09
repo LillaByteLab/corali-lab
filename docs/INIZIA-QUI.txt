@@ -1,4 +1,4 @@
-CORALI LAB 0.5.5 BETA - INIZIA QUI
+CORALI LAB 0.5.10 BETA - INIZIA QUI
 
 1. Surface con Snapdragon: scarica Windows-arm64. PC Intel/AMD: Windows-x64.
 2. Estrai tutto lo ZIP in una cartella. Apri CoraliLab, poi Installa.cmd.

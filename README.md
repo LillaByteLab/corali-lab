@@ -85,7 +85,7 @@ L'addestramento usa dati sintetici. Risultato del suggeritore: **56/60 casi di t
 ## Cosa è stato verificato
 
 - 98 test Python su ARM64 e 98 su x64 in emulazione Windows ARM.
-- Pacchetti confezionati: conversione Cedro PDF → testo, PDF → Excel sintetico, trascrizione WAV → Word/TXT, AI locale, proposta di formula, video web → MP3 e ripristino dal cestino con hash invariati.
+- Pacchetti confezionati: conversione Cedro PDF → testo, PDF → Excel sintetico, trascrizione WAV → Word/TXT, AI locale, proposta di formula, registrazione locale → MP3 e ripristino dal cestino con hash invariati.
 - Interfaccia e formule: anteprima, applicazione, ricalcolo, salvataggio e annullamento.
 
 **Restano da verificare su dispositivo reale:** avvio e prestazioni su un PC Intel/AMD fisico; acquisizione dal microfono; accelerazione GPU (sul Surface è stato verificato il ritorno alla CPU). Provare prima i PDF sintetici inclusi e confrontare i risultati dei propri documenti. I [rapporti storici della 0.5.2](docs/COLLAUDO-COMPLESSIVO.json) sono fotografie del collaudo precedente alla pubblicazione: i loro campi `published` non descrivono lo stato corrente di GitHub.
