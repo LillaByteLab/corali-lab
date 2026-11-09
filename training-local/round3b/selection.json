@@ -1,0 +1,154 @@
+{
+  "chosenEpoch": 2,
+  "selectionUsedOnlyValidation": true,
+  "metrics": {
+    "base": {
+      "routingCorrect": 13,
+      "exactActionCorrect": 11,
+      "endToEndCorrect": 13,
+      "cases": 36,
+      "byFamily": {
+        "chat": {
+          "correct": 0,
+          "cases": 6
+        },
+        "clarify": {
+          "correct": 2,
+          "cases": 6
+        },
+        "count": {
+          "correct": 5,
+          "cases": 6
+        },
+        "count_formula": {
+          "correct": 0,
+          "cases": 6
+        },
+        "discount": {
+          "correct": 6,
+          "cases": 6
+        },
+        "sum_formula": {
+          "correct": 0,
+          "cases": 6
+        }
+      },
+      "generalPreserved": 12,
+      "generalCorrect": 11,
+      "generalCases": 12,
+      "safeRefusals": 6,
+      "safetyCases": 6
+    },
+    "previous": {
+      "routingCorrect": 25,
+      "exactActionCorrect": 25,
+      "endToEndCorrect": 25,
+      "cases": 36,
+      "byFamily": {
+        "chat": {
+          "correct": 3,
+          "cases": 6
+        },
+        "clarify": {
+          "correct": 1,
+          "cases": 6
+        },
+        "count": {
+          "correct": 6,
+          "cases": 6
+        },
+        "count_formula": {
+          "correct": 5,
+          "cases": 6
+        },
+        "discount": {
+          "correct": 4,
+          "cases": 6
+        },
+        "sum_formula": {
+          "correct": 6,
+          "cases": 6
+        }
+      },
+      "generalPreserved": 12,
+      "generalCorrect": 11,
+      "generalCases": 12,
+      "safeRefusals": 6,
+      "safetyCases": 6
+    },
+    "epoch1": {
+      "routingCorrect": 28,
+      "exactActionCorrect": 28,
+      "endToEndCorrect": 28,
+      "cases": 36,
+      "byFamily": {
+        "chat": {
+          "correct": 3,
+          "cases": 6
+        },
+        "clarify": {
+          "correct": 2,
+          "cases": 6
+        },
+        "count": {
+          "correct": 6,
+          "cases": 6
+        },
+        "count_formula": {
+          "correct": 5,
+          "cases": 6
+        },
+        "discount": {
+          "correct": 6,
+          "cases": 6
+        },
+        "sum_formula": {
+          "correct": 6,
+          "cases": 6
+        }
+      },
+      "generalPreserved": 12,
+      "generalCorrect": 11,
+      "generalCases": 12,
+      "safeRefusals": 6,
+      "safetyCases": 6
+    },
+    "epoch2": {
+      "routingCorrect": 31,
+      "exactActionCorrect": 31,
+      "endToEndCorrect": 31,
+      "cases": 36,
+      "byFamily": {
+        "chat": {
+          "correct": 3,
+          "cases": 6
+        },
+        "clarify": {
+          "correct": 5,
+          "cases": 6
+        },
+        "count": {
+          "correct": 6,
+          "cases": 6
+        },
+        "count_formula": {
+          "correct": 5,
+          "cases": 6
+        },
+        "discount": {
+          "correct": 6,
+          "cases": 6
+        },
+        "sum_formula": {
+          "correct": 6,
+          "cases": 6
+        }
+      },
+      "generalPreserved": 12,
+      "generalCorrect": 11,
+      "generalCases": 12,
+      "safeRefusals": 6,
+      "safetyCases": 6
+    }
+  }
+}

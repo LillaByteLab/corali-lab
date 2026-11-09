@@ -1,0 +1,7 @@
+Coralì Lab 0.5.10 beta per Windows
+
+Per convertire un file in MP3, aggiungi una registrazione con +, apri Converti e trasforma e scegli MP3 tra i formati disponibili. Per ottenere il testo, scegli Trascrivi e seleziona il file audio o video. Il primo utilizzo di un modello può richiedere Internet.
+
+In Assistente e strumenti trovi Presenze mensa e Da PDF a Excel. Con Presenze mensa puoi controllare le corrispondenze e le X, creare un riepilogo Excel e salvare il CSV dopo la verifica.
+
+Scarica x64 per Intel/AMD o ARM64 per Surface Snapdragon. Estrai tutto lo ZIP, chiudi la versione precedente e avvia Installa.cmd dalla cartella CoraliLab. Il collegamento sul desktop apre la nuova versione.

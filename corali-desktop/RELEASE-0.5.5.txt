@@ -1,0 +1,21 @@
+Corali Lab 0.5.5 beta
+
+Questa versione completa gli interventi tecnici programmati dopo le issue #1 e #2:
+- trasferimenti locali HTTP a blocchi, indice dei file aggiornato dopo le operazioni e riconciliato periodicamente;
+- cache dei cataloghi legata anche al contenuto del file, configurazione e versione Cedro;
+- trascrizioni multiple con una sola invocazione Cedro e risultati/errori distinti per sorgente;
+- pubblicazione dei risultati solo a lavoro completo, messaggio comprensibile per CSV bloccati;
+- recupero prudente dei temporanei lasciati da processi terminati, senza cancellare quelli ancora in uso;
+- pulizia automatica facoltativa delle sole copie importate, nel cestino ripristinabile;
+- modello locale Qwen3 4B facoltativo, preferenze di abilitazione e precaricamento, controllo RAM, rilascio dopo inattivita e prova di velocita;
+- separazione piu esplicita tra testo del documento e richiesta dell'utente; regressioni AI ampliate;
+- formattazione leggibile dei sorgenti Python del progetto.
+
+98 test ARM64 e 98 x64 in emulazione. Le ulteriori prove sui pacchetti sono riportate in COLLAUDO-PACCHETTI.json.
+Il modello AI e sperimentale: i risultati sintetici documentati non garantiscono affidabilita sui documenti reali.
+Nessun nuovo addestramento dei pesi; il suggeritore con adattatore e separato dal nuovo modello.
+Non sono certificati PC Intel/AMD fisici, microfono reale, accelerazione GPU o qualsiasi documento Office.
+
+Cedro incorporato: 0.26.10, https://github.com/realfulvio/cedro, licenza MIT.
+L'eventuale confronto con Cedro 0.28.1 era stato proposto come prova separata e non fa parte di questa versione.
+Copyright, licenze e sorgenti dei componenti restano inclusi. Precedenti release conservate.

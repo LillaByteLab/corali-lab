@@ -1,0 +1,27 @@
+Corali Lab 0.5.3 beta - Windows ARM64 e x64
+
+Corali Lab e nato a partire da Cedro, di Luca Accorsi (realfulvio), licenza MIT.
+https://github.com/realfulvio/cedro
+Questa versione incorpora Cedro 0.26.10 e i relativi motori di trascrizione:
+https://github.com/realfulvio/cedro/releases/tag/v0.26.10
+https://github.com/realfulvio/cedro/releases/tag/motori-v0.26.10
+
+Novita
+- Aggiornamento Cedro e worker ARM64/x64; incluse le varianti x64 dei processori recenti.
+- Verifica SHA-256 dei motori di trascrizione e ripristino delle copie cache alterate.
+- Download web: connessione allo stesso indirizzo pubblico verificato, anche dopo redirect.
+  Playlist e frammenti passano dallo stesso controllo; flussi live o protocolli che
+  richiedono download esterni sono rifiutati. FFmpeg elabora soltanto file locali.
+- Corretto un errore nei risultati web causato da un file temporaneo interno.
+- Preferenze: anteprima delle copie vecchie, cestino interno e ripristino.
+  Nessuna cancellazione automatica. Lo svuotamento definitivo richiede ELIMINA.
+- Verifica dei singoli EXE/DLL del runtime AI prima di ogni nuovo avvio.
+- Prova GPU Vulkan facoltativa per ARM64/x64, con ritorno al processore.
+- Versione dell'interfaccia letta dal programma, riconoscimenti Cedro visibili.
+
+Limiti
+La prova Vulkan sul Surface e tornata alla CPU: accelerazione GPU non certificata.
+x64 verificato in emulazione Windows ARM: resta da provare su Intel/AMD fisico.
+La cattura del microfono reale resta da provare; trascrizione WAV e output Word/TXT verificati.
+AI sperimentale: verificare le proposte prima di applicarle. Modello e adattatore invariati.
+Applicazione beta non firmata digitalmente. Gli originali e le vecchie versioni sono conservati.

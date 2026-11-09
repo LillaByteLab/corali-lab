@@ -1,0 +1,272 @@
+{
+  "status": "trained_evaluated_quality_insufficient",
+  "optimizerSteps": 192,
+  "trainableParameters": 311296,
+  "continuedFrom": "round2/run/epoch-3",
+  "selectedEpoch": 2,
+  "selectedMode": "epoch2",
+  "validation": {
+    "base": {
+      "routingCorrect": 18,
+      "endToEndCorrect": 26,
+      "cases": 48,
+      "byFamily": {
+        "chat": {
+          "correct": 0,
+          "cases": 8
+        },
+        "clarify": {
+          "correct": 8,
+          "cases": 8
+        },
+        "count": {
+          "correct": 6,
+          "cases": 8
+        },
+        "count_formula": {
+          "correct": 0,
+          "cases": 8
+        },
+        "discount": {
+          "correct": 6,
+          "cases": 8
+        },
+        "sum_formula": {
+          "correct": 6,
+          "cases": 8
+        }
+      },
+      "generalPreserved": 12,
+      "generalCorrect": 11,
+      "generalCases": 12,
+      "safeRefusals": 6,
+      "safetyCases": 6
+    },
+    "previous": {
+      "routingCorrect": 23,
+      "endToEndCorrect": 31,
+      "cases": 48,
+      "byFamily": {
+        "chat": {
+          "correct": 0,
+          "cases": 8
+        },
+        "clarify": {
+          "correct": 8,
+          "cases": 8
+        },
+        "count": {
+          "correct": 8,
+          "cases": 8
+        },
+        "count_formula": {
+          "correct": 0,
+          "cases": 8
+        },
+        "discount": {
+          "correct": 7,
+          "cases": 8
+        },
+        "sum_formula": {
+          "correct": 8,
+          "cases": 8
+        }
+      },
+      "generalPreserved": 12,
+      "generalCorrect": 11,
+      "generalCases": 12,
+      "safeRefusals": 6,
+      "safetyCases": 6
+    },
+    "epoch1": {
+      "routingCorrect": 26,
+      "endToEndCorrect": 26,
+      "cases": 48,
+      "byFamily": {
+        "chat": {
+          "correct": 0,
+          "cases": 8
+        },
+        "clarify": {
+          "correct": 8,
+          "cases": 8
+        },
+        "count": {
+          "correct": 8,
+          "cases": 8
+        },
+        "count_formula": {
+          "correct": 0,
+          "cases": 8
+        },
+        "discount": {
+          "correct": 2,
+          "cases": 8
+        },
+        "sum_formula": {
+          "correct": 8,
+          "cases": 8
+        }
+      },
+      "generalPreserved": 12,
+      "generalCorrect": 11,
+      "generalCases": 12,
+      "safeRefusals": 6,
+      "safetyCases": 6
+    },
+    "epoch2": {
+      "routingCorrect": 34,
+      "endToEndCorrect": 40,
+      "cases": 48,
+      "byFamily": {
+        "chat": {
+          "correct": 8,
+          "cases": 8
+        },
+        "clarify": {
+          "correct": 8,
+          "cases": 8
+        },
+        "count": {
+          "correct": 8,
+          "cases": 8
+        },
+        "count_formula": {
+          "correct": 0,
+          "cases": 8
+        },
+        "discount": {
+          "correct": 8,
+          "cases": 8
+        },
+        "sum_formula": {
+          "correct": 8,
+          "cases": 8
+        }
+      },
+      "generalPreserved": 12,
+      "generalCorrect": 11,
+      "generalCases": 12,
+      "safeRefusals": 6,
+      "safetyCases": 6
+    }
+  },
+  "test": {
+    "base": {
+      "routingCorrect": 27,
+      "endToEndCorrect": 37,
+      "cases": 60,
+      "byFamily": {
+        "chat": {
+          "correct": 0,
+          "cases": 10
+        },
+        "clarify": {
+          "correct": 10,
+          "cases": 10
+        },
+        "count": {
+          "correct": 10,
+          "cases": 10
+        },
+        "count_formula": {
+          "correct": 6,
+          "cases": 10
+        },
+        "discount": {
+          "correct": 5,
+          "cases": 10
+        },
+        "sum_formula": {
+          "correct": 6,
+          "cases": 10
+        }
+      },
+      "generalPreserved": 12,
+      "generalCorrect": 11,
+      "generalCases": 12,
+      "safeRefusals": 6,
+      "safetyCases": 6
+    },
+    "previous": {
+      "routingCorrect": 35,
+      "endToEndCorrect": 45,
+      "cases": 60,
+      "byFamily": {
+        "chat": {
+          "correct": 0,
+          "cases": 10
+        },
+        "clarify": {
+          "correct": 10,
+          "cases": 10
+        },
+        "count": {
+          "correct": 10,
+          "cases": 10
+        },
+        "count_formula": {
+          "correct": 10,
+          "cases": 10
+        },
+        "discount": {
+          "correct": 5,
+          "cases": 10
+        },
+        "sum_formula": {
+          "correct": 10,
+          "cases": 10
+        }
+      },
+      "generalPreserved": 12,
+      "generalCorrect": 11,
+      "generalCases": 12,
+      "safeRefusals": 6,
+      "safetyCases": 6
+    },
+    "epoch2": {
+      "routingCorrect": 58,
+      "endToEndCorrect": 58,
+      "cases": 60,
+      "byFamily": {
+        "chat": {
+          "correct": 10,
+          "cases": 10
+        },
+        "clarify": {
+          "correct": 10,
+          "cases": 10
+        },
+        "count": {
+          "correct": 10,
+          "cases": 10
+        },
+        "count_formula": {
+          "correct": 10,
+          "cases": 10
+        },
+        "discount": {
+          "correct": 8,
+          "cases": 10
+        },
+        "sum_formula": {
+          "correct": 10,
+          "cases": 10
+        }
+      },
+      "generalPreserved": 12,
+      "generalCorrect": 11,
+      "generalCases": 12,
+      "safeRefusals": 6,
+      "safetyCases": 6
+    }
+  },
+  "necessaryPrototypeGatePassed": false,
+  "routingImprovementOverBaseObserved": true,
+  "releaseAllowed": false,
+  "deployed": false,
+  "finalTestUsedForSelectionOrTraining": false,
+  "scope": "Real LoRA training of operation selection. Numerical correctness comes from local deterministic functions using original typed data, not from neural arithmetic. General replies use base with adapters off. PDF/OCR extraction, installed app integration and x64 hardware not tested.",
+  "baseSha256": "ac4ff82fb4b8225c38db1a7d4da285625584d99900e662074550517206188767",
+  "adapterSha256": "beb6e1a2f922275b248c920da4f7c07dee74aa5d8ba603ecf7f596638818f977"
+}

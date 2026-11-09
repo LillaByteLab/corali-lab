@@ -1,0 +1,150 @@
+{
+  "chosenEpoch": 2,
+  "selectionUsedOnlyValidation": true,
+  "metrics": {
+    "base": {
+      "routingCorrect": 18,
+      "endToEndCorrect": 26,
+      "cases": 48,
+      "byFamily": {
+        "chat": {
+          "correct": 0,
+          "cases": 8
+        },
+        "clarify": {
+          "correct": 8,
+          "cases": 8
+        },
+        "count": {
+          "correct": 6,
+          "cases": 8
+        },
+        "count_formula": {
+          "correct": 0,
+          "cases": 8
+        },
+        "discount": {
+          "correct": 6,
+          "cases": 8
+        },
+        "sum_formula": {
+          "correct": 6,
+          "cases": 8
+        }
+      },
+      "generalPreserved": 12,
+      "generalCorrect": 11,
+      "generalCases": 12,
+      "safeRefusals": 6,
+      "safetyCases": 6
+    },
+    "previous": {
+      "routingCorrect": 23,
+      "endToEndCorrect": 31,
+      "cases": 48,
+      "byFamily": {
+        "chat": {
+          "correct": 0,
+          "cases": 8
+        },
+        "clarify": {
+          "correct": 8,
+          "cases": 8
+        },
+        "count": {
+          "correct": 8,
+          "cases": 8
+        },
+        "count_formula": {
+          "correct": 0,
+          "cases": 8
+        },
+        "discount": {
+          "correct": 7,
+          "cases": 8
+        },
+        "sum_formula": {
+          "correct": 8,
+          "cases": 8
+        }
+      },
+      "generalPreserved": 12,
+      "generalCorrect": 11,
+      "generalCases": 12,
+      "safeRefusals": 6,
+      "safetyCases": 6
+    },
+    "epoch1": {
+      "routingCorrect": 26,
+      "endToEndCorrect": 26,
+      "cases": 48,
+      "byFamily": {
+        "chat": {
+          "correct": 0,
+          "cases": 8
+        },
+        "clarify": {
+          "correct": 8,
+          "cases": 8
+        },
+        "count": {
+          "correct": 8,
+          "cases": 8
+        },
+        "count_formula": {
+          "correct": 0,
+          "cases": 8
+        },
+        "discount": {
+          "correct": 2,
+          "cases": 8
+        },
+        "sum_formula": {
+          "correct": 8,
+          "cases": 8
+        }
+      },
+      "generalPreserved": 12,
+      "generalCorrect": 11,
+      "generalCases": 12,
+      "safeRefusals": 6,
+      "safetyCases": 6
+    },
+    "epoch2": {
+      "routingCorrect": 34,
+      "endToEndCorrect": 40,
+      "cases": 48,
+      "byFamily": {
+        "chat": {
+          "correct": 8,
+          "cases": 8
+        },
+        "clarify": {
+          "correct": 8,
+          "cases": 8
+        },
+        "count": {
+          "correct": 8,
+          "cases": 8
+        },
+        "count_formula": {
+          "correct": 0,
+          "cases": 8
+        },
+        "discount": {
+          "correct": 8,
+          "cases": 8
+        },
+        "sum_formula": {
+          "correct": 8,
+          "cases": 8
+        }
+      },
+      "generalPreserved": 12,
+      "generalCorrect": 11,
+      "generalCases": 12,
+      "safeRefusals": 6,
+      "safetyCases": 6
+    }
+  }
+}

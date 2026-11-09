@@ -1,0 +1,28 @@
+CORALI LAB 0.5.5 BETA - INIZIA QUI
+
+1. Surface con Snapdragon: scarica Windows-arm64. PC Intel/AMD: Windows-x64.
+2. Estrai tutto lo ZIP in una cartella. Apri CoraliLab, poi Installa.cmd.
+3. Usa l'icona Corali Lab sul Desktop. Le versioni precedenti e i documenti sono conservati.
+
+L'app e una beta non firmata. Per un PC di lavoro segui le indicazioni del responsabile informatico.
+PDF, editor e calcoli manuali funzionano senza l'assistente AI.
+
+AI LOCALE FACOLTATIVA
+Apri Assistente e strumenti > Assistente AI.
+Scegli il modello Leggero (circa 1 GB) o Esteso Qwen3 4B (circa 2,5 GB), quindi Salva preferenze AI.
+Premi Prepara i componenti AI. Internet serve per questo download; i documenti vengono elaborati sul PC.
+Il profilo esteso richiede almeno 3 GB di RAM libera all'avvio; chiudi le app pesanti se richiesto.
+Puoi provare la velocita, disattivare l'assistente, scegliere il caricamento all'avvio e il rilascio dopo inattivita.
+Il modello esteso non usa l'adattatore del suggeritore. Il precedente pacchetto AI locale v1 resta valido per il suggeritore di operazioni.
+Controlla risposte, numeri, requisiti e fonti. Non vengono applicate automaticamente formule o istruzioni.
+Se manca una DLL: Ripara il motore AI. Se una risposta e errata, correggila: il modello puo sbagliare.
+
+COPIE E RECUPERO
+Preferenze: la pulizia automatica e disattivata inizialmente. Se la abiliti, all'avvio sposta solo vecchie copie importate nel cestino di Corali.
+Gli originali esterni e i risultati rimangono conservati. Il cestino e ripristinabile e si svuota solo con conferma.
+Nella stessa pagina, Recupero dopo un'interruzione permette di salvare copie parziali recuperate. Un file incompleto puo essere inutilizzabile.
+
+COME SEGNALARE UN PROBLEMA
+Indica versione, ARM64 o x64, operazione, messaggio e tipo/dimensione del file.
+Usa un esempio anonimo. Non allegare nomi, documenti scolastici o dati riservati nelle issue pubbliche.
+https://github.com/LillaByteLab/corali-lab/issues

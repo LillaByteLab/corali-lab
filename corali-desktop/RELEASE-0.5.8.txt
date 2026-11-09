@@ -1,0 +1,9 @@
+Coralì Lab 0.5.8-beta · Windows
+
+In Assistente e strumenti → Presenze mensa scegli il mese, i prospetti scolastici e la stampa mensile del gestionale. Se il prospetto riporta soltanto il totale pasti, seleziona «Converti i totali mensili in X». Coralì riempie, per ciascun alunno abbinato, tante celle quanti sono i pasti. La scelta delle posizioni è convenzionale: le prime N colonne giornaliere in ordine cronologico, compresi i fine settimana. Con zero pasti le celle restano vuote. Se sono documentate le date effettive, vengono mantenute.
+
+Premi Controlla e mostra anteprima. La vista Anteprima dei simboli nel CSV e il foglio Excel Anteprima simboli mostrano la griglia risultante. Il riepilogo conserva i totali originali. Coralì verifica il numero delle X di ogni riga prima di salvare. Il CSV conserva le righe del modello e omette l’intestazione iniziale del mese. Il totale rimane rappresentato dalle X. Il formato di prova predefinito è Windows-1252 con separatore punto e virgola. È possibile selezionare una copia CSV del modello per verificarne il formato.
+
+Quando il modello per corsi contiene anagrafiche discordanti e gli altri controlli consentono di preparare la griglia, si può salvare una BOZZA PARZIALE per controllo. Le righe non abbinate rimangono vuote e il riepilogo indica quali verificare. Confrontare i dati della scuola e del gestionale e predisporre copie corrette prima di creare il CSV definitivo. La bozza non registra il mese come esportato. Per l’importazione manuale scegliere il CSV definitivo dopo il controllo delle corrispondenze. Il collaudo diretto nel gestionale è a cura dell’operatore.
+
+Per installare, estrarre tutto il pacchetto x64 (Intel/AMD) o arm64 (Surface Snapdragon) e avviare CoraliLab.exe. Per creare il collegamento desktop utilizzare Installa.cmd.

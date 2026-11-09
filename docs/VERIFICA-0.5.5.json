@@ -1,0 +1,97 @@
+{
+  "version": "0.5.5-beta",
+  "cedro": "0.26.10",
+  "unitTests": {
+    "arm64": 98,
+    "x64Emulated": 98
+  },
+  "additionalManifestRegression": {
+    "arm64": 18,
+    "x64Emulated": 18
+  },
+  "packagedTests": [
+    {
+      "architecture": "arm64",
+      "version": "0.5.5-beta",
+      "cedro": "0.26.10",
+      "nativePdfConversion": true,
+      "syntheticPdfToExcel": true,
+      "transcriptionWordAndText": true,
+      "localAiInference": true,
+      "multiTranscriptionPartialSuccess": true,
+      "trainedProposal": true,
+      "publicWebToMp3": true,
+      "cleanupRestoreHashesMatch": true,
+      "x64Emulated": false,
+      "missingDllRepairedAndInference": true,
+      "csvSessionReleased": true,
+      "batchContinuesAfterMissingFile": true,
+      "cancel1500PagePdfNoOutput": true,
+      "cancelLatencySeconds": 0.045
+    },
+    {
+      "architecture": "x64",
+      "version": "0.5.5-beta",
+      "cedro": "0.26.10",
+      "nativePdfConversion": true,
+      "syntheticPdfToExcel": true,
+      "transcriptionWordAndText": true,
+      "localAiInference": true,
+      "multiTranscriptionPartialSuccess": true,
+      "trainedProposal": true,
+      "publicWebToMp3": true,
+      "cleanupRestoreHashesMatch": true,
+      "x64Emulated": true,
+      "missingDllRepairedAndInference": true,
+      "csvSessionReleased": true,
+      "batchContinuesAfterMissingFile": true,
+      "cancel1500PagePdfNoOutput": true,
+      "cancelLatencySeconds": 0.05
+    }
+  ],
+  "packagedAiProfiles": [
+    {
+      "arch": "arm64",
+      "x64Emulated": false,
+      "model4BIntegrityAndInference": true,
+      "preloadOnRestart": true,
+      "idleReleasedSeconds": 60.9,
+      "disabledManualCalculationsWork": true,
+      "translationSecondsIncludingPossibleLoad": 8.07,
+      "response": "Buongiorno."
+    },
+    {
+      "arch": "x64",
+      "x64Emulated": true,
+      "model4BIntegrityAndInference": true,
+      "preloadOnRestart": true,
+      "idleReleasedSeconds": 60.9,
+      "disabledManualCalculationsWork": true,
+      "translationSecondsIncludingPossibleLoad": 24.341,
+      "response": "Buongiorno."
+    }
+  ],
+  "uiChecks": {
+    "aiPreferencesSaved": true,
+    "optionalRetentionSaved": true,
+    "recoveryControlsVisible": true
+  },
+  "aiEvaluation": {
+    "syntheticVariants": 30,
+    "additionalCases": 12,
+    "models": [
+      "Qwen2.5 1.5B official Q4_K_M",
+      "Qwen3 4B Instruct 2507 Q4_K_M"
+    ],
+    "rawAnswersIncluded": true,
+    "weightsTrainedInThisRelease": false,
+    "known4BHoldoutContradiction": "h05",
+    "knownLightHoldoutInstructionInjection": "h03",
+    "humanIndependentReview": false,
+    "generalAccuracyCertified": false
+  },
+  "physicalIntelAmdTest": false,
+  "physicalMicrophoneTest": false,
+  "gpuAccelerationProven": false,
+  "originalUserDocumentsUsed": false
+}

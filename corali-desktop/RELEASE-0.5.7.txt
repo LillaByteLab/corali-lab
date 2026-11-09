@@ -1,0 +1,15 @@
+Coralì Lab 0.5.7-beta · Windows · 9 novembre 2026
+
+Presenze mensa, dal prospetto unico al confronto per corso
+
+In Assistente e strumenti → Presenze mensa, scegli mese e anno e carica il file così come lo invia la scuola. Puoi selezionare più scuole insieme. Dal foglio unico Coralì prepara il riepilogo e schede distinte per plesso e classe, con alunni e pasti. I docenti sono conteggiati a parte.
+
+Per riprodurre una suddivisione già verificata, ad esempio Tempo Pieno e Modulo, seleziona anche il file già lavorato dello stesso anno scolastico in «Suddivisione già usata». Vengono utilizzati soltanto i nomi dei gruppi associati univocamente alla coppia plesso-classe. Il file di riferimento deve avere un elenco completo e almeno due fogli di dettaglio che insieme coprano gli alunni una volta ciascuno. I pasti vengono sempre dal prospetto corrente. Le classi nuove o divise tra più gruppi mantengono una propria scheda. Se il prospetto corrente comprende già il riepilogo e i dettagli coerenti, Coralì riconosce i gruppi direttamente.
+
+Per confrontare i nominativi scegli l’esportazione originale Stampa mensile alunni del gestionale. Il file .xls può contenere tabelle HTML. Coralì le legge localmente come dati, identifica il periodo anche quando mese e anno sono uniti, distingue corsi, alunni, giorni della settimana e righe di totale. Il modello può riguardare soltanto alcuni corsi. Nella vista Confronto in ordine di modello trovi la riga originale, il corso, il nominativo e l’esito. Se il codice fiscale coincide ma il nominativo differisce, il confronto viene segnalato e il CSV resta bloccato. Gli alunni della scuola assenti dall’elenco restano visibili nel riepilogo. Controlla quelli delle classi rappresentate. Plesso e classe nel riepilogo provengono dalla scuola.
+
+Salva riepilogo Excel crea i fogli Riepilogo, Alunni, Classi, Controlli, i dettagli delle classi/gruppi e, con il modello per corsi, Confronto modello. Con soltanto i totali mensili è possibile lavorare sul riepilogo. Per creare il CSV servono le date documentate. Il modello prevede un simbolo nei giorni di presenza. Nessuna regola di distribuzione convenzionale è stata approvata.
+
+Per i prospetti con date verificate (X/1, vuoto/0, totale coerente), il CSV conserva l’ordine del modello, compresi corsi, giorni della settimana, righe vuote e totali. Elimina la prima riga del mese. I simboli vengono inseriti soltanto negli alunni abbinati, mai nella colonna Tot. Il formato proposto è punto e virgola, Windows-1252 e fine riga Windows. Una copia CSV del modello vuoto è facoltativa e permette il confronto con un formato conosciuto. L’importazione effettiva nel gestionale resta da validare dall’operatore. Il registro delle esportazioni evita doppioni per alunno e mese sullo stesso PC, anche lavorando su corsi separati.
+
+Installazione: su Intel/AMD estrai tutto lo ZIP x64; su Surface Snapdragon estrai arm64. Apri CoraliLab.exe nella cartella estratta. Per il collegamento sul Desktop usa Installa.cmd. Le cartelle delle vecchie versioni e i file ricevuti restano disponibili.

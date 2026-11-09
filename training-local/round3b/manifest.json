@@ -1,0 +1,31 @@
+{
+  "status": "trained_evaluated_quality_insufficient",
+  "syntheticOnly": true,
+  "splits": {
+    "train": {
+      "examples": 66,
+      "sha256": "d573282c1f59322cb66f06af3cefe01562450ffe5d11e3c029d6cb060903f9be"
+    },
+    "validation": {
+      "examples": 36,
+      "sha256": "161292450dfbd3ea5548a160ed346c057ecc7794bf2c73ac52b9089e295c4a65"
+    },
+    "test": {
+      "examples": 60,
+      "sha256": "7d1d9f6c09674977c658b05f81b657cb1a58eeeb618385f9324b15600359f443"
+    }
+  },
+  "trainingObjective": "Disambiguate immediate counts from Excel formulas; preserve other operation routing.",
+  "plannedTraining": {
+    "epochs": 2,
+    "learningRate": 0.0001,
+    "resumeAdapter": "round3/run/epoch-2"
+  },
+  "selectionRule": "Highest validation routing accuracy, then chat accuracy; prefer the parent on ties, otherwise earlier epoch.",
+  "validationInformedCurriculum": true,
+  "oldFinalTestExamplesUsedForTraining": false,
+  "releaseAllowed": false,
+  "trainingExecuted": true,
+  "optimizerSteps": 132,
+  "evaluationCompleted": true
+}

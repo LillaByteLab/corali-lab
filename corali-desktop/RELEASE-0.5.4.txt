@@ -1,0 +1,28 @@
+CORALI LAB 0.5.4 BETA - 30 ottobre 2026
+
+Correzioni riproducibili dalle segnalazioni nell'issue 2:
+- Tornando alla home, gli editor Office/CSV chiudono la sessione e rilasciano i dati.
+  Le modifiche non salvate continuano a richiedere una scelta esplicita.
+- Annullamento PDF controllato tra le pagine e prima della pubblicazione del risultato.
+  Una singola operazione nativa gia in corso (unione/salvataggio) deve terminare; il risultato annullato non viene pubblicato.
+- Nei lotti, un file mancante e un errore del singolo elemento: gli altri continuano.
+- Ripara il motore AI: download ufficiale, verifica completa in cartella temporanea,
+  sostituzione solo dopo verifica. La copia precedente resta conservata.
+- SHA-256 in streaming, lettura di soli 8 byte per il formato Office, scansione file
+  con scandir e selezione dei 5000 piu recenti senza ordinare tutta la raccolta.
+- Stato AI distingue componenti presenti e verifica eseguita all'avvio.
+- Istruzioni AI aggiornate e 30 casi sintetici riproducibili, con risposte integrali.
+
+L'AI NON e stata riaddestrata. Modello e adattatore restano invariati.
+Le nuove istruzioni migliorano alcuni casi con dati mancanti, ma il piccolo modello
+continua a seguire istruzioni ingannevoli nei documenti e puo sbagliare conclusioni.
+Gli avvisi sono visibili nell'assistente. Le proposte richiedono verifica; nessuna
+decisione su pagamenti o requisiti e automatizzata. Qwen3 4B non e incluso ne collaudato.
+I calcoli deterministici del programma sono separati dalle risposte generative.
+
+Cedro incorporato: 0.26.10, MIT, https://github.com/realfulvio/cedro
+Nessun aggiornamento a versioni Cedro successive in questa beta.
+Copyright e licenze originali conservati. Progetto indipendente.
+Prove Windows ARM64 e x64 in emulazione: non certificano hardware Intel/AMD fisico,
+microfono reale o accelerazione GPU. Versione beta non firmata digitalmente.
+Originali, dati utente e versioni precedenti conservati.

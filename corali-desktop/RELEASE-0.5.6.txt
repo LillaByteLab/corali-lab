@@ -1,0 +1,69 @@
+CORALÌ LAB 0.5.6-beta · Windows · prova locale del 9 novembre 2026
+
+Installazione
+Sul PC Intel/AMD estrarre l'intero ZIP x64; sul Surface Snapdragon estrarre
+arm64. Aprire CoraliLab.exe nella cartella estratta. Installa.cmd crea il
+collegamento Desktop in una cartella di versione separata.
+
+Registro della materna
+1. Aggiungere il PDF con il pulsante +, poi aprire Assistente e strumenti.
+2. Da PDF a Excel → Registri presenze mensili → Ricostruisci e controlla l’Excel.
+3. Nei Risultati usare Salva copia. Verificare le colonne Controllo e Pagina PDF.
+Due lettere accostate nella medesima cella (es. RU) restano insieme. Ai fini
+del confronto ciascuna lettera vale una sigla. I numeri stampati dal registro
+restano in colonne distinte. Testo illeggibile, data mancante o totale assente
+vengono segnalati. Una griglia ambigua che potrebbe attribuire un dato alla
+persona o al giorno sbagliato interrompe l’elaborazione con un’indicazione.
+La data di nascita su una pagina successiva resta associata allo studente.
+
+Presenze mensa
+1. In Assistente e strumenti → Presenze mensa scegliere anno e mese del servizio.
+   Se nel prospetto c’è soltanto il nome del mese, controllare personalmente l’anno.
+2. Selezionare uno o più prospetti .xls/.xlsx. Controllare l’anteprima, filtrare
+   per classe o plesso e salvare il riepilogo Excel (Riepilogo, Alunni, Controlli).
+3. Se la scuola invia soltanto il totale, il riepilogo è utilizzabile per la
+   verifica. L’esportazione CSV resta sospesa. Per completare il mese servono
+   le date effettive oppure una procedura per totali confermata dal fornitore.
+4. Quando sono disponibili le date, selezionare il modello mensile prodotto
+   dal gestionale, Servizio refezione → Pasti → Caricamento mensile → Stampa mensile alunni,
+   con mese e classi pertinenti. Per controllare il formato selezionare anche
+   una copia CSV vuota dello stesso modello con la sola riga del mese rimossa.
+   Separatore e codifica vengono rilevati e intestazioni e righe confrontate.
+5. Verificare abbinamenti, giorni e numeri in anteprima. Con tutti i controlli
+   superati, Crea CSV salva una copia nei Risultati. L’importazione nel gestionale
+   è un passaggio manuale dell’operatore. Per questa versione,
+   la compatibilità del tracciato con una vera esportazione del gestionale resta da collaudare.
+
+Perimetro del primo profilo
+I titoli di colonna determinano i campi in ciascun foglio. Studenti/docenti
+sono distinti dal tipo utente. Righe studente con lo stesso CF e dati identici
+in fogli diversi del medesimo file si contano una volta. Duplicati nello stesso
+foglio o tra sorgenti, conflitti di anagrafica, di periodo o di totale richiedono
+verifica. Il codice fiscale è controllato per forma e carattere finale. In sua
+assenza l'abbinamento richiede una corrispondenza unica su cognome, nome, plesso
+e classe. Nessun abbinamento per somiglianza. Il riepilogo elenca anche gli
+alunni non abbinati e i riferimenti alle righe. Le colonne aggiuntive prive
+di intestazione sono segnalate.
+
+Il profilo giornaliero legge intestazioni numeriche o date gg/mm/aaaa, X o 1
+come pasto e vuoto o 0 come assenza di simbolo. Richiede la quadratura rispetto
+al totale individuale. Layout sconosciuti, simboli diversi, modello già compilato
+o righe extra del modello sospendono la creazione del CSV. Il modello supportato
+ha un solo foglio compilato, la riga del mese e una sola riga di intestazioni.
+I formati numerici non gestiti sono segnalati per evitare conversioni arbitrarie.
+
+Il registro locale mensa-esportazioni.sqlite, nella cartella utente CoraliLab,
+impedisce di generare due volte il CSV per lo stesso prospetto o alunno/mese.
+Si può risalvare il file già creato dai Risultati. Il registro riguarda questo
+PC e non conosce l’esito di un’importazione eseguita nel gestionale. In caso di chiusura
+anomala durante il salvataggio, verificare il risultato prima di una ripetizione.
+Lettura, controlli e scrittura avvengono sul PC. Nessun modello AI da installare.
+
+Implementazione e prove
+workspace_tools.register gestisce le sigle composte e il controllo geometrico;
+mensa.py legge i dati, controlla identità, periodo, giorni e modello; advanced.py
+espone anteprima ed esportazione tramite il servizio locale autenticato.
+Il testo delle celle viene trattato come dato. Il CSV conserva le colonne del
+modello e viene riletto prima della consegna. Sorgenti identici su ARM64 e x64.
+Test di regressione sintetici: test_register_cases.py e test_mensa.py.
+Per la costruzione partire da BUILD.txt. La versione precedente rimane disponibile.

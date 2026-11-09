@@ -1,0 +1,7 @@
+.operation-panel{margin-top:18px;padding:16px;border:1px solid #bad8dc;border-radius:14px;background:#f6fbfc;color:#174b58}
+.operation-panel summary{font-size:1.05rem;font-weight:700;cursor:pointer;padding:4px 0}
+.operation-panel .field{display:flex;flex-direction:column;gap:6px;margin:14px 0}
+.operation-panel input,.operation-panel textarea,.operation-panel select{box-sizing:border-box;width:100%;min-height:40px;padding:9px;border:1px solid #c8dfe1;border-radius:8px;font:inherit;background:white;color:#174b58}
+.operation-panel textarea{resize:vertical}.operation-panel button{display:block;max-width:100%;white-space:normal;margin:12px 0;padding:10px 12px}
+.operation-panel pre{padding:12px;background:white;border-radius:8px;max-height:220px;overflow:auto}.operation-panel pre:empty{display:none}
+.operation-panel p{line-height:1.5;font-size:.93em}.operation-panel button:disabled{opacity:.55}
