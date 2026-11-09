@@ -3,7 +3,7 @@
   "architecture": "arm64",
   "source": "https://github.com/realfulvio/cedro/releases/tag/v0.26.10",
   "installerSha256": "b4e00b31779817772044d7d1b54043cc9f81ea3cc96614afda7b15369aa78aa0",
-  "cedroSha256": "a57c5186a571a50aebbdb3731ce0bb942d2e2f38684aab210b5ebfec28ec0330",
+  "cedroSha256": "fd803aa8db85dcc46ab032129d5897734a257ba07f1c008bb67a535381187b81",
   "workers": [
     {
       "name": "cedro-trascrivi-base.exe",
@@ -25,5 +25,7 @@
       "url": "https://github.com/realfulvio/cedro/releases/download/motori-v0.26.10/cedro-trascrivi-0.26.10-windows-arm64-vulkan.exe",
       "sha256": "1d5977506805b95585531c4fc311ef36ed212c0da5ead1c4a758bce2e01e7955"
     }
-  ]
+  ],
+  "variant": "files-only",
+  "revision": "02d01d33cc3e051510047d5ef7dbef658717ddcf"
 }
