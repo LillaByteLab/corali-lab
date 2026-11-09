@@ -1,0 +1,40 @@
+name: Motore locale Windows
+on:
+  push:
+    branches: [build-local-engine]
+  workflow_dispatch:
+permissions:
+  contents: read
+env:
+  CMAKE_POLICY_VERSION_MINIMUM: "3.5"
+jobs:
+  build:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: windows-2022
+            arch: x64
+          - os: windows-11-arm
+            arch: arm64
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+        with:
+          repository: realfulvio/cedro
+          ref: 02d01d33cc3e051510047d5ef7dbef658717ddcf
+          path: upstream
+          persist-credentials: false
+      - shell: pwsh
+        run: |
+          python corali-desktop/prepare-engine.py upstream
+          if ($LASTEXITCODE) { exit 1 }
+          Set-Location upstream
+          cargo build --locked --release --bin cedro
+          if ($LASTEXITCODE) { exit 1 }
+          & ./target/release/cedro.exe --help
+      - uses: actions/upload-artifact@v4
+        with:
+          name: engine-${{ matrix.arch }}
+          path: upstream/target/release/cedro.exe
