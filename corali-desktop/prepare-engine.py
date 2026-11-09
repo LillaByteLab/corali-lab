@@ -17,3 +17,10 @@ cli = (src / "cli.rs").read_text(encoding="utf-8")
 cli = cli.replace('        "update" => return update(),\n', '')
 cli = cli[:cli.index("fn update()")] + 'fn print_help() { eprintln!("Coralì Lab: convert, slices, trascrivi"); }\n\n' + cli[cli.index("fn transcribe("):]
 (src / "cli.rs").write_text(cli, encoding="utf-8")
+
+# The tagged Cargo.toml advanced the package version before its lockfile.
+lock = source / "Cargo.lock"
+spec = lock.read_text(encoding="utf-8")
+old = 'name = "cedro"\nversion = "0.26.9"'
+assert spec.count(old) == 1
+lock.write_text(spec.replace(old, old.replace("0.26.9", "0.26.10")), encoding="utf-8")
